@@ -1,71 +1,16 @@
 <!DOCTYPE html>
 <html lang="zh-CN"><head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>蕉蕉的本周辅食计划（9.7–9.13）</title>
-<style>
-:root{--ink:#2f333b;--muted:#8a93a3;--bg:#f4efe8;--paper:#fffefb;--line:#e8e0d4;--accent:#c45c26;--accent-soft:#f6e4db;--cream:#fbf3ea;--sage:#5f7d4f}
-*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ink);font-family:"PingFang SC","Microsoft YaHei",sans-serif;line-height:1.7}
-.topnav{position:sticky;top:0;z-index:20;backdrop-filter:blur(10px);background:rgba(244,239,232,.92);border-bottom:1px solid var(--line)}
-.topnav-inner{max-width:980px;margin:0 auto;padding:12px 16px;display:flex;gap:12px;align-items:center;justify-content:space-between}
-.brand{font-weight:700}.brand small{display:block;color:var(--muted);font-weight:500;font-size:12px}
-.topnav nav{display:flex;gap:6px;overflow:auto;max-width:65%}
-.topnav a{white-space:nowrap;text-decoration:none;color:var(--muted);background:var(--paper);border-radius:999px;padding:8px 12px;font-size:13px;font-weight:600}
-.wrap{max-width:980px;margin:0 auto;padding:20px 16px 64px}
-.hero{background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:24px}
-.hero h1{margin:0;font-size:28px}.lead{color:var(--muted);margin:8px 0 0;font-size:14px}
-.badges{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
-.badge{border:1px solid var(--line);background:var(--paper);border-radius:999px;padding:6px 12px;font-size:12px;display:inline-flex;align-items:center;gap:6px}
-.dot{width:8px;height:8px;border-radius:50%;background:var(--accent)}
-.focus{margin-top:14px;border-left:4px solid var(--accent);background:var(--cream);border-radius:0 12px 12px 0;padding:14px 16px;font-size:14px}
-.focus b{color:#5a4326}
-h2{display:flex;align-items:center;gap:8px;font-size:22px;margin:32px 0 12px}
-h2:before{content:"";width:4px;height:18px;background:var(--accent);border-radius:4px;display:inline-block}
-.week-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
-@media(max-width:700px){.week-grid{grid-template-columns:1fr}}
-.week-card{display:block;text-decoration:none;color:inherit;background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:14px}
-.week-card-top{display:flex;justify-content:space-between;gap:8px;align-items:flex-start}
-.week-card h3{margin:0;font-size:16px}
-.week-card p{margin:6px 0 0;display:grid;grid-template-columns:3rem 1fr;gap:6px;font-size:13px}
-.week-card em{font-style:normal;color:var(--muted);font-size:12px;font-weight:600}
-.tag{background:var(--accent-soft);color:var(--accent);border-radius:999px;padding:2px 8px;font-size:11px;font-weight:700;white-space:nowrap}
-.tag.warn{background:#fff1e0;color:#b35a00}
-.day-nav{position:sticky;top:58px;z-index:10;display:flex;gap:8px;overflow:auto;padding:10px 0;background:rgba(244,239,232,.95)}
-.day-nav a{flex:0 0 auto;text-decoration:none;color:var(--ink);background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:8px 12px;font-size:13px;font-weight:600;text-align:center}
-.day-nav span{display:block;color:var(--muted);font-size:11px;font-weight:500}
-.day-article{background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:18px;margin-bottom:14px}
-.day-article header{display:flex;justify-content:space-between;gap:12px;align-items:flex-start;margin-bottom:8px}
-.day-article h3{margin:0}.muted{color:var(--muted);margin:4px 0 0;font-size:13px}
-.meal-card{margin-top:12px;border:1px solid var(--line);background:#faf7f2;border-radius:14px;padding:14px}
-.meal-time{margin:0;color:var(--accent);font-size:12px;font-weight:700}
-.meal-card h4{margin:4px 0 8px;font-size:16px}
-.pillars{display:flex;flex-wrap:wrap;gap:6px}
-.pill{background:rgba(232,224,212,.7);border-radius:999px;padding:2px 8px;font-size:12px;color:var(--muted)}
-.two-col{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:12px}
-@media(max-width:700px){.two-col{grid-template-columns:1fr}}
-.two-col h5{margin:0 0 6px;color:var(--sage);font-size:13px}
-.two-col ul,.two-col ol{margin:0;padding-left:18px;font-size:13px}
-.two-col li{margin-bottom:4px}
-.note-inline{margin:12px 0 0;background:var(--cream);border-radius:10px;padding:8px 10px;font-size:13px;color:#7a6548}
-table{width:100%;border-collapse:collapse;background:var(--paper);border:1px solid var(--line);border-radius:14px;overflow:hidden;font-size:13px;margin:12px 0}
-th,td{border-top:1px solid var(--line);padding:10px 12px;text-align:left;vertical-align:top}
-th{background:#f3eee6;color:var(--muted);font-size:12px}
-.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:12px 0}
-@media(max-width:600px){.grid{grid-template-columns:1fr 1fr}}
-.g-card{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
-.g-card b{display:block;font-size:15px;margin-bottom:4px}.g-card span{font-size:13px;color:var(--muted)}
-.sec{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:18px 22px}
-.sec ul{margin:0;padding-left:20px}.sec li{margin-bottom:8px;font-size:14px}
-.callout,.sec b{font-weight:700}
-.foot{text-align:center;color:var(--muted);font-size:12px;margin-top:28px}
-.ing-list td:first-child{font-weight:600;white-space:nowrap}
-</style>
+<link rel="stylesheet" href="assets/style.css?v=12">
 </head><body>
 <header class="topnav"><div class="topnav-inner">
 <div class="brand">蕉蕉辅食<small>2026.9.7 — 9.13</small></div>
-<nav><a href="#overview">总览</a><a href="#daily">每日做法</a><a href="#shop">采购</a><a href="#nutrition">营养</a><a href="#notes">注意</a><a href="#archive">往期</a></nav>
+<nav><a href="#overview" data-tab="overview" class="is-on">总览</a><a href="#daily" data-tab="daily">食谱</a><a href="#shop" data-tab="shop">采购</a><a href="#nutrition" data-tab="nutrition">营养</a><a href="#notes" data-tab="notes">提醒</a><a href="#archive" data-tab="archive">往期</a></nav>
 </div></header>
 <main class="wrap">
-<section id="overview" class="hero">
+<section class="tab-panel is-on" data-tab="overview" id="overview">
+<section class="hero">
 <h1>蕉蕉的本周辅食计划</h1>
 <p class="lead">2026 年 9 月 7 日（周一）— 9 月 13 日（周日）· 每天上午、下午各一顿</p>
 <div class="badges">
@@ -76,25 +21,42 @@ th{background:#f3eee6;color:var(--muted);font-size:12px}
       <span class="badge"><span class="dot"></span>手指食物：家里现成食材现搭</span>
       <span class="badge"><span class="dot"></span>1 岁内不加盐、不加糖</span>
     </div>
-<div class="focus">
-    <b>本周新食材</b>：芋头（周四）、鲜百合（周日）；葱花（周六）、平菇（周四）少量尝试——若之前没吃过，按新食材观察。
-    <br><b>本周重点</b>：① 本周不吃猪肝，铁由牛肉×2、猪肉和蛋黄承担；② 每天 1 个全熟蛋黄，无蛋的餐就把蛋做进饼/糕/饭里；③ 硬度食量比上周再进阶一点点（0.8~1.2cm、仍手指可压碎）；④ 小馒头不区分口味，家里有什么用什么；⑤ 手指食物家里现成食材现搭。
-    <br><b>食材</b>：家里有猪肉、牛肉、虾、三文鱼、鳕鱼、鸡蛋；嫩豆腐、猪肉末、芋头、鲜百合、平菇、宝宝吐司需采购；蔬菜水果现买。
+<div class="focus-grid">
+    <div class="focus">
+      <b>本周新食材</b>
+      <p>芋头（周四）、鲜百合（周日）；葱花（周六）、平菇（周四）少量尝试——若之前没吃过，按新食材观察。</p>
+    </div>
+    <div class="focus">
+      <b>本周重点</b>
+      <p>① 本周不吃猪肝，铁由牛肉×2、猪肉和蛋黄承担；② 每天 1 个全熟蛋黄，无蛋的餐就把蛋做进饼/糕/饭里；③ 硬度食量比上周再进阶一点点（0.8~1.2cm、仍手指可压碎）；④ 小馒头不区分口味，家里有什么用什么；⑤ 手指食物家里现成食材现搭。</p>
+    </div>
+    <div class="focus">
+      <b>要买</b>
+      <p>家里有猪肉、牛肉、虾、三文鱼、鳕鱼、鸡蛋；嫩豆腐、猪肉末、芋头、鲜百合、平菇、宝宝吐司需采购；蔬菜水果现买。</p>
+    </div>
   </div>
 </section>
 <h2>一周菜单</h2>
-<div class="week-grid"><a class="week-card" href="#d97"><div class="week-card-top"><h3>周一 9.7</h3><span class="tag">猪肉日</span></div><p><em>上午</em><span>冬瓜蒸肉丸 + 米饭</span></p><p><em>下午</em><span>香橙蒸蛋 + 小馒头</span></p></a><a class="week-card" href="#d98"><div class="week-card-top"><h3>周二 9.8</h3><span class="tag">牛肉日</span></div><p><em>上午</em><span>莲藕牛肉粒面</span></p><p><em>下午</em><span>玉米蒸蛋 + 南瓜饼</span></p></a><a class="week-card" href="#d99"><div class="week-card-top"><h3>周三 9.9</h3><span class="tag">深海鱼日</span></div><p><em>上午</em><span>三文鱼蔬菜软饭</span></p><p><em>下午</em><span>牛油果泥 + 蔬菜鸡蛋饼</span></p></a><a class="week-card" href="#d910"><div class="week-card-top"><h3>周四 9.10</h3><span class="tag warn">芋头首试</span></div><p><em>上午</em><span>鲜虾芋头肉末豆腐羹泡饭（+平菇丁蛋花）</span></p><p><em>下午</em><span>苹果山药小米粥 + 小馒头</span></p></a><a class="week-card" href="#d911"><div class="week-card-top"><h3>周五 9.11</h3><span class="tag">牛肉日</span></div><p><em>上午</em><span>土豆牛肉焖饭（蛋黄拌入）</span></p><p><em>下午</em><span>芝麻糊 + 小馒头</span></p></a><a class="week-card" href="#d912"><div class="week-card-top"><h3>周六 9.12</h3><span class="tag">深海鱼日</span></div><p><em>上午</em><span>香煎鳕鱼 + 番茄炒鸡蛋烩饭（少量葱花）</span></p><p><em>下午</em><span>香蕉鸡蛋液煎宝宝吐司 + 苹果片</span></p></a><a class="week-card" href="#d913"><div class="week-card-top"><h3>周日 9.13</h3><span class="tag">猪肉日</span></div><p><em>上午</em><span>猪肉鲜虾玉米小馄饨</span></p><p><em>下午</em><span>百合梨小米粥 + 蒸糕</span></p></a></div>
-<h2 id="daily">每日做法</h2>
-<div class="day-nav"><a href="#d97">周一<span>9.7</span></a><a href="#d98">周二<span>9.8</span></a><a href="#d99">周三<span>9.9</span></a><a href="#d910">周四<span>9.10</span></a><a href="#d911">周五<span>9.11</span></a><a href="#d912">周六<span>9.12</span></a><a href="#d913">周日<span>9.13</span></a></div>
-<article id="d97" class="day-article"><header><div><h3>周一 9.7</h3><p class="muted">猪肉日 · 今日</p></div><span class="tag">猪肉日</span></header><div class="meal-card"><p class="meal-time">上午 · 正餐 · 10:30</p><h4>冬瓜蒸肉丸 + 米饭 · 手指食物：家里现成食材现搭</h4><div class="pillars"><span class="pill">碳水 软米饭</span><span class="pill">蔬菜 冬瓜</span><span class="pill">蛋白 猪肉</span><span class="pill">脂肪 核桃油</span></div><div class="two-col"><div><h5>食材</h5><ul><li>猪肉丸 20~25g（蒸熟、做小做软）</li><li>冬瓜 20g（蒸软）</li><li>软米饭 20g</li><li>核桃油几滴</li></ul></div><div><h5>做法</h5><ol><li>肉丸蒸熟做软，切开确认内部无硬块。</li><li>冬瓜蒸到透明软烂，切小块。</li><li>米饭保持软湿，滴几滴核桃油拌匀。</li><li>肉丸切成适合抓握和咬碎的小块；手指食物家里现成现搭，蒸到手指可压碎。</li></ol></div></div><p class="note-inline">手指食物用家里现成的搭（胡萝卜条/西兰花/红薯条等都行），蒸到手指可压碎即可。</p></div><div class="meal-card"><p class="meal-time">下午 · 轻餐 · 16:30</p><h4>香橙蒸蛋 + 小馒头</h4><div class="pillars"><span class="pill">碳水 小馒头</span><span class="pill">蔬菜/水果 香橙</span><span class="pill">蛋白 蛋黄</span><span class="pill">脂肪 亚麻籽油</span></div><div class="two-col"><div><h5>食材</h5><ul><li>香橙果肉去膜去籽切碎 + 蛋黄 1 个（全熟）</li><li>小馒头撕小块</li><li>亚麻籽油几滴</li></ul></div><div><h5>做法</h5><ol><li>蛋黄蒸或煮至全熟，可与少量温水打散再蒸得更嫩。</li><li>香橙去膜去籽，切碎拌在蒸蛋上。</li><li>小馒头家里有什么口味用什么，撕成小块练习咬断。</li></ol></div></div><p class="note-inline">小馒头家里有什么口味用什么；香橙去膜去籽。</p></div></article><article id="d98" class="day-article"><header><div><h3>周二 9.8</h3><p class="muted">牛肉日 · 莲藕巩固</p></div><span class="tag">牛肉日</span></header><div class="meal-card"><p class="meal-time">上午 · 正餐 · 10:30</p><h4>莲藕牛肉粒面 · 手指食物：家里现成食材现搭</h4><div class="pillars"><span class="pill">碳水 碎碎面</span><span class="pill">蔬菜 莲藕</span><span class="pill">蛋白 牛肉</span><span class="pill">脂肪 核桃油</span></div><div class="two-col"><div><h5>食材</h5><ul><li>牛里脊 20~25g（切 0.8~1cm 粒炖软）</li><li>莲藕 15g（炖软切丁）</li><li>碎碎面 20g</li><li>核桃油几滴</li></ul></div><div><h5>做法</h5><ol><li>牛肉切 0.8–1cm 小粒，小火炖到勺背可压碎。</li><li>莲藕与牛肉同炖至软，切丁。</li><li>碎碎面煮软后拌入，滴核桃油。</li><li>手指食物家里现成现搭，蒸到手指可压碎。</li></ol></div></div><p class="note-inline">牛肉粒比上周大一号练咀嚼；莲藕上周已首试无异常，本周巩固。</p></div><div class="meal-card"><p class="meal-time">下午 · 轻餐 · 16:30</p><h4>玉米蒸蛋 + 南瓜饼</h4><div class="pillars"><span class="pill">碳水 玉米+面粉</span><span class="pill">蔬菜 南瓜</span><span class="pill">蛋白 蛋黄</span><span class="pill">脂肪 少量食用油</span></div><div class="two-col"><div><h5>食材</h5><ul><li>玉米蒸蛋：玉米粒 15g 蒸熟压碎 + 蛋黄 1 个（全熟）；南瓜饼：南瓜 25g 蒸熟压泥 + 面粉/燕麦粉适量 + 少量水调糊，少油小火煎成小软饼</li></ul></div><div><h5>做法</h5><ol><li>玉米粒蒸熟压碎，与蛋黄一起蒸成嫩蒸蛋。</li><li>南瓜泥拌面粉调成稠糊，少油小火煎到两面熟、里面软，切小条。</li><li>不加糖盐。</li></ol></div></div><p class="note-inline">南瓜饼做法：南瓜泥拌面粉调成稠糊，小火少油煎到两面熟、里面软，切小条给她抓着咬；不加糖盐。</p></div></article><article id="d99" class="day-article"><header><div><h3>周三 9.9</h3><p class="muted">深海鱼日 · 三文鱼</p></div><span class="tag">深海鱼日</span></header><div class="meal-card"><p class="meal-time">上午 · 正餐 · 10:30</p><h4>三文鱼蔬菜软饭 · 手指食物：家里现成食材现搭</h4><div class="pillars"><span class="pill">碳水 软烂饭</span><span class="pill">蔬菜 番茄/青菜</span><span class="pill">蛋白 三文鱼</span><span class="pill">脂肪 三文鱼 DHA + 核桃油</span></div><div class="two-col"><div><h5>食材</h5><ul><li>三文鱼 20g（去刺压碎）</li><li>番茄/青菜 15g</li><li>软烂饭 20g</li><li>核桃油几滴</li></ul></div><div><h5>做法</h5><ol><li>三文鱼去刺切小块，蒸或低油煎至全熟后压碎。</li><li>番茄、青菜煮软切碎，拌进软烂饭，滴核桃油。</li><li>手指食物家里现成现搭。</li></ol></div></div><p class="note-inline">今天上午不放蛋黄；蛋黄挪到下午的蔬菜鸡蛋饼里，一天总量不变。</p></div><div class="meal-card"><p class="meal-time">下午 · 轻餐 · 16:30</p><h4>牛油果泥 + 蔬菜鸡蛋饼</h4><div class="pillars"><span class="pill">碳水 面粉/燕麦粉</span><span class="pill">蔬菜 当日现有蔬菜</span><span class="pill">蛋白 蛋黄</span><span class="pill">脂肪 牛油果</span></div><div class="two-col"><div><h5>食材</h5><ul><li>牛油果 15~20g（现压现吃）；蔬菜鸡蛋饼：蛋黄 1 个（全熟）+ 面粉/燕麦粉适量 + 家里现有蔬菜碎 15g，少油小火煎熟</li></ul></div><div><h5>做法</h5><ol><li>蛋黄与粉、蔬菜碎调糊，少油小火煎薄煎软，切小块。</li><li>牛油果现压现吃。</li></ol></div></div><p class="note-inline">上周吃过的蔬菜鸡蛋饼做法；做薄做软切小块，牛油果现压现吃。</p></div></article><article id="d910" class="day-article"><header><div><h3>周四 9.10</h3><p class="muted">芋头首试 · 虾日</p></div><span class="tag warn">芋头首试</span></header><div class="meal-card"><p class="meal-time">上午 · 正餐 · 10:30</p><h4>鲜虾芋头肉末豆腐羹泡饭（+平菇丁蛋花）</h4><div class="pillars"><span class="pill">碳水 软米饭+芋头</span><span class="pill">蔬菜 芋头+平菇</span><span class="pill">蛋白 虾+猪肉+豆腐+蛋黄</span><span class="pill">脂肪 核桃油</span></div><div class="two-col"><div><h5>食材</h5><ul><li>芋头 20g（蒸透压泥/极细丁）</li><li>鲜虾 10~15g（切碎）</li><li>猪肉末 10g</li><li>嫩豆腐 15g</li><li>平菇 1 小朵（切极细丁煮软）</li><li>蛋花（蛋黄 1 个打散淋入）</li><li>软米饭 15g</li></ul></div><div><h5>做法</h5><ol><li>芋头蒸到完全粉糯再压泥或切极细丁。</li><li>虾去虾线切碎煮熟；猪肉末炒/煮熟。</li><li>豆腐压碎，平菇极细丁煮软，蛋黄打散淋成蛋花。</li><li>与软饭一起做成羹泡饭。</li></ol></div></div><p class="note-inline">芋头首次尝试：蒸到完全粉糯再压泥，留意 1~2 天；平菇若之前没吃过，与芋头同属当天新面孔，先只给少量细丁观察。</p></div><div class="meal-card"><p class="meal-time">下午 · 轻餐 · 16:30</p><h4>苹果山药小米粥 + 小馒头</h4><div class="pillars"><span class="pill">碳水 小米+山药+小馒头</span><span class="pill">蔬菜/水果 苹果</span><span class="pill">蛋白 —</span><span class="pill">脂肪 亚麻籽油</span></div><div class="two-col"><div><h5>食材</h5><ul><li>小米 15g（煮烂）</li><li>山药 15g（蒸熟压泥）</li><li>苹果约 30g（蒸软压泥）</li><li>小馒头撕小块</li><li>亚麻籽油几滴</li></ul></div><div><h5>做法</h5><ol><li>小米煮软烂，拌入山药泥和苹果泥，滴亚麻籽油。</li><li>小馒头撕小块搭配。</li></ol></div></div><p class="note-inline">上午羹里已有蛋花，下午清淡；粥煮到软烂顺滑。</p></div></article><article id="d911" class="day-article"><header><div><h3>周五 9.11</h3><p class="muted">牛肉日 · 本周不吃猪肝</p></div><span class="tag">牛肉日</span></header><div class="meal-card"><p class="meal-time">上午 · 正餐 · 10:30</p><h4>土豆牛肉焖饭（蛋黄拌入） · 手指食物：家里现成食材现搭</h4><div class="pillars"><span class="pill">碳水 米饭+土豆</span><span class="pill">蔬菜 土豆+胡萝卜</span><span class="pill">蛋白 牛肉+蛋黄</span><span class="pill">脂肪 核桃油</span></div><div class="two-col"><div><h5>食材</h5><ul><li>牛肉 20~25g（切小粒炖软）</li><li>土豆 20g（切小丁）</li><li>胡萝卜 10g</li><li>软米饭 20g（焖软烂）</li><li>蒸蛋黄 1 个（压碎拌入）</li><li>核桃油几滴</li></ul></div><div><h5>做法</h5><ol><li>牛肉、土豆切小丁焖到软烂；胡萝卜蒸/焖软切碎。</li><li>蛋黄压碎拌进饭里，滴核桃油。</li><li>手指食物家里现成现搭。</li></ol></div></div><p class="note-inline">牛肉土豆切小丁焖到软烂；蛋黄拌进饭里，保证今天的蛋黄量。</p></div><div class="meal-card"><p class="meal-time">下午 · 轻餐 · 16:30</p><h4>芝麻糊 + 小馒头</h4><div class="pillars"><span class="pill">碳水 小馒头</span><span class="pill">蔬菜 —</span><span class="pill">蛋白 —</span><span class="pill">脂肪 黑芝麻+核桃</span></div><div class="two-col"><div><h5>食材</h5><ul><li>黑芝麻粉少量 + 核桃粉少量（温水调稀）</li><li>小馒头撕小块</li></ul></div><div><h5>做法</h5><ol><li>芝麻糊用温水调稀，少量分开喂，不加糖。</li><li>小馒头撕小块搭配。</li></ol></div></div><p class="note-inline">芝麻糊调稀、少量；不加糖。本周猪肝暂停，铁由牛肉×2、猪肉和蛋黄承担。</p></div></article><article id="d912" class="day-article"><header><div><h3>周六 9.12</h3><p class="muted">深海鱼日 · 鳕鱼 + 葱花少量尝试</p></div><span class="tag">深海鱼日</span></header><div class="meal-card"><p class="meal-time">上午 · 正餐 · 10:30</p><h4>香煎鳕鱼 + 番茄炒鸡蛋烩饭（少量葱花）</h4><div class="pillars"><span class="pill">碳水 软米饭</span><span class="pill">蔬菜 番茄+葱花</span><span class="pill">蛋白 鳕鱼+蛋</span><span class="pill">脂肪 少量食用油 + 鳕鱼 DHA</span></div><div class="two-col"><div><h5>食材</h5><ul><li>鳕鱼 20g（去刺，薄涂油小火煎至全熟后压碎）</li><li>番茄 20g（去皮切碎）</li><li>鸡蛋炒熟（蛋黄 1 个，或全蛋按家里习惯）</li><li>软米饭 15g（烩软）</li><li>葱花极少量（切末煸熟）</li></ul></div><div><h5>做法</h5><ol><li>鳕鱼去净刺，薄涂油小火煎至全熟，压碎，去掉焦脆硬边。</li><li>番茄去皮切碎煮软，与蛋一起烩入软饭。</li><li>葱花只放一点点、切末煸熟提香。</li></ol></div></div><p class="note-inline">葱花首次少量尝试：只放一点点、切末煸熟提香；鳕鱼煎后压碎、不留焦脆硬边。</p></div><div class="meal-card"><p class="meal-time">下午 · 轻餐 · 16:30</p><h4>香蕉鸡蛋液煎宝宝吐司 + 苹果片 · 抓握：蒸软苹果片</h4><div class="pillars"><span class="pill">碳水 吐司</span><span class="pill">蔬菜/水果 香蕉+苹果</span><span class="pill">蛋白 蛋黄</span><span class="pill">脂肪 少量食用油</span></div><div class="two-col"><div><h5>食材</h5><ul><li>宝宝吐司 1 片（切条）</li><li>香蕉 25g 压泥 + 鸡蛋液（蛋黄为主）浸泡</li><li>少油小火煎软</li><li>苹果蒸软切薄片/软条</li></ul></div><div><h5>做法</h5><ol><li>吐司切条，用香蕉泥+蛋液浸泡后少油小火煎软，不煎脆边。</li><li>苹果务必蒸软或切极薄，作抓握。</li><li>全程看护。</li></ol></div></div><p class="note-inline">吐司煎软、不煎脆边；苹果片务必蒸软或切极薄——生硬苹果片抓握吃有呛噎风险，全程看护。</p></div></article><article id="d913" class="day-article"><header><div><h3>周日 9.13</h3><p class="muted">猪肉日 · 咀嚼进阶</p></div><span class="tag">猪肉日</span></header><div class="meal-card"><p class="meal-time">上午 · 正餐 · 10:30</p><h4>猪肉鲜虾玉米小馄饨 · 手指食物：家里现成食材现搭</h4><div class="pillars"><span class="pill">碳水 馄饨皮</span><span class="pill">蔬菜 青菜+玉米</span><span class="pill">蛋白 猪肉+虾</span><span class="pill">脂肪 核桃油</span></div><div class="two-col"><div><h5>食材</h5><ul><li>猪肉 15g + 鲜虾 10g + 玉米粒（蒸熟压碎）做馅</li><li>馄饨皮适量</li><li>青菜 15g</li><li>核桃油几滴</li></ul></div><div><h5>做法</h5><ol><li>猪肉、鲜虾切碎，玉米粒蒸熟压碎做馅。</li><li>包成小馄饨，做小、煮/蒸熟做软。</li><li>青菜焯软切碎搭配；不提供玉米芯。</li></ol></div></div><p class="note-inline">整只小馄饨练咀嚼；玉米只用蒸熟压碎的玉米粒，不提供玉米芯。</p></div><div class="meal-card"><p class="meal-time">下午 · 轻餐 · 16:30</p><h4>百合梨小米粥 + 蒸糕</h4><div class="pillars"><span class="pill">碳水 小米+蒸糕</span><span class="pill">蔬菜/水果 鲜百合+秋梨</span><span class="pill">蛋白 蛋黄</span><span class="pill">脂肪 亚麻籽油</span></div><div class="two-col"><div><h5>食材</h5><ul><li>鲜百合 10g（取瓣蒸软压碎）</li><li>秋梨 20g（去皮蒸软压泥）</li><li>小米 15g（煮烂）</li><li>蒸糕 1 小块（家里现成软蒸糕；蛋黄 1 个可做进蒸糕或拌入粥）</li></ul></div><div><h5>做法</h5><ol><li>小米煮烂，拌入百合压碎与秋梨泥。</li><li>蒸糕选软的无糖款；蛋黄做进蒸糕或拌入粥。</li></ol></div></div><p class="note-inline">鲜百合首次尝试：取瓣蒸到粉糯压碎，配秋梨防秋燥；蒸糕选软的无糖款。</p></div></article>
-<h2 id="shop">采购清单</h2>
+<div class="week-grid"><a class="week-card" data-date="2026-09-07" href="#d97"><div class="week-card-top"><h3>周一 9.7</h3><span class="tag">猪肉日</span></div><p><em>上午</em><span>冬瓜蒸肉丸 + 米饭</span></p><p><em>下午</em><span>香橙蒸蛋 + 小馒头</span></p></a><a class="week-card" data-date="2026-09-08" href="#d98"><div class="week-card-top"><h3>周二 9.8</h3><span class="tag">牛肉日</span></div><p><em>上午</em><span>莲藕牛肉粒面</span></p><p><em>下午</em><span>玉米蒸蛋 + 南瓜饼</span></p></a><a class="week-card" data-date="2026-09-09" href="#d99"><div class="week-card-top"><h3>周三 9.9</h3><span class="tag">深海鱼日</span></div><p><em>上午</em><span>三文鱼蔬菜软饭</span></p><p><em>下午</em><span>牛油果泥 + 蔬菜鸡蛋饼</span></p></a><a class="week-card" data-date="2026-09-10" href="#d910"><div class="week-card-top"><h3>周四 9.10</h3><span class="tag warn">芋头首试</span></div><p><em>上午</em><span>鲜虾芋头肉末豆腐羹泡饭（+平菇丁蛋花）</span></p><p><em>下午</em><span>苹果山药小米粥 + 小馒头</span></p></a><a class="week-card" data-date="2026-09-11" href="#d911"><div class="week-card-top"><h3>周五 9.11</h3><span class="tag">牛肉日</span></div><p><em>上午</em><span>土豆牛肉焖饭（蛋黄拌入）</span></p><p><em>下午</em><span>芝麻糊 + 小馒头</span></p></a><a class="week-card" data-date="2026-09-12" href="#d912"><div class="week-card-top"><h3>周六 9.12</h3><span class="tag">深海鱼日</span></div><p><em>上午</em><span>香煎鳕鱼 + 番茄炒鸡蛋烩饭（少量葱花）</span></p><p><em>下午</em><span>香蕉鸡蛋液煎宝宝吐司 + 苹果片</span></p></a><a class="week-card" data-date="2026-09-13" href="#d913"><div class="week-card-top"><h3>周日 9.13</h3><span class="tag">猪肉日</span></div><p><em>上午</em><span>猪肉鲜虾玉米小馄饨</span></p><p><em>下午</em><span>百合梨小米粥 + 蒸糕</span></p></a></div>
+</section>
+<section class="tab-panel" data-tab="daily" id="daily">
+<h2>每日做法</h2>
+<div class="day-nav"><a href="#d97" data-date="2026-09-07">周一<span>9.7</span></a><a href="#d98" data-date="2026-09-08">周二<span>9.8</span></a><a href="#d99" data-date="2026-09-09">周三<span>9.9</span></a><a href="#d910" data-date="2026-09-10">周四<span>9.10</span></a><a href="#d911" data-date="2026-09-11">周五<span>9.11</span></a><a href="#d912" data-date="2026-09-12">周六<span>9.12</span></a><a href="#d913" data-date="2026-09-13">周日<span>9.13</span></a></div>
+<article id="d97" class="day-article" data-date="2026-09-07"><header><div><h3>周一 9.7</h3><p class="muted">猪肉日</p></div><span class="tag">猪肉日</span></header><div class="meal-card"><p class="meal-time">上午 · 正餐 · 10:30</p><h4>冬瓜蒸肉丸 + 米饭 · 手指食物：家里现成食材现搭</h4><div class="pillars"><span class="pill">碳水 软米饭</span><span class="pill">蔬菜 冬瓜</span><span class="pill">蛋白 猪肉</span><span class="pill">脂肪 核桃油</span></div><div class="two-col"><div><h5>食材</h5><ul><li>猪肉丸 20~25g（蒸熟、做小做软）</li><li>冬瓜 20g（蒸软）</li><li>软米饭 20g</li><li>核桃油几滴</li></ul></div><div><h5>做法</h5><ol><li>肉丸蒸熟做软，切开确认内部无硬块。</li><li>冬瓜蒸到透明软烂，切小块。</li><li>米饭保持软湿，滴几滴核桃油拌匀。</li><li>肉丸切成适合抓握和咬碎的小块；手指食物家里现成现搭，蒸到手指可压碎。</li></ol></div></div><p class="note-inline">手指食物用家里现成的搭（胡萝卜条/西兰花/红薯条等都行），蒸到手指可压碎即可。</p></div><div class="meal-card"><p class="meal-time">下午 · 轻餐 · 16:30</p><h4>香橙蒸蛋 + 小馒头</h4><div class="pillars"><span class="pill">碳水 小馒头</span><span class="pill">蔬菜/水果 香橙</span><span class="pill">蛋白 蛋黄</span><span class="pill">脂肪 亚麻籽油</span></div><div class="two-col"><div><h5>食材</h5><ul><li>香橙果肉去膜去籽切碎 + 蛋黄 1 个（全熟）</li><li>小馒头撕小块</li><li>亚麻籽油几滴</li></ul></div><div><h5>做法</h5><ol><li>蛋黄蒸或煮至全熟，可与少量温水打散再蒸得更嫩。</li><li>香橙去膜去籽，切碎拌在蒸蛋上。</li><li>小馒头家里有什么口味用什么，撕成小块练习咬断。</li></ol></div></div><p class="note-inline">小馒头家里有什么口味用什么；香橙去膜去籽。</p></div></article><article id="d98" class="day-article" data-date="2026-09-08"><header><div><h3>周二 9.8</h3><p class="muted">牛肉日 · 莲藕巩固</p></div><span class="tag">牛肉日</span></header><div class="meal-card"><p class="meal-time">上午 · 正餐 · 10:30</p><h4>莲藕牛肉粒面 · 手指食物：家里现成食材现搭</h4><div class="pillars"><span class="pill">碳水 碎碎面</span><span class="pill">蔬菜 莲藕</span><span class="pill">蛋白 牛肉</span><span class="pill">脂肪 核桃油</span></div><div class="two-col"><div><h5>食材</h5><ul><li>牛里脊 20~25g（切 0.8~1cm 粒炖软）</li><li>莲藕 15g（炖软切丁）</li><li>碎碎面 20g</li><li>核桃油几滴</li></ul></div><div><h5>做法</h5><ol><li>牛肉切 0.8–1cm 小粒，小火炖到勺背可压碎。</li><li>莲藕与牛肉同炖至软，切丁。</li><li>碎碎面煮软后拌入，滴核桃油。</li><li>手指食物家里现成现搭，蒸到手指可压碎。</li></ol></div></div><p class="note-inline">牛肉粒比上周大一号练咀嚼；莲藕上周已首试无异常，本周巩固。</p></div><div class="meal-card"><p class="meal-time">下午 · 轻餐 · 16:30</p><h4>玉米蒸蛋 + 南瓜饼</h4><div class="pillars"><span class="pill">碳水 玉米+面粉</span><span class="pill">蔬菜 南瓜</span><span class="pill">蛋白 蛋黄</span><span class="pill">脂肪 少量食用油</span></div><div class="two-col"><div><h5>食材</h5><ul><li>玉米蒸蛋：玉米粒 15g 蒸熟压碎 + 蛋黄 1 个（全熟）；南瓜饼：南瓜 25g 蒸熟压泥 + 面粉/燕麦粉适量 + 少量水调糊，少油小火煎成小软饼</li></ul></div><div><h5>做法</h5><ol><li>玉米粒蒸熟压碎，与蛋黄一起蒸成嫩蒸蛋。</li><li>南瓜泥拌面粉调成稠糊，少油小火煎到两面熟、里面软，切小条。</li><li>不加糖盐。</li></ol></div></div><p class="note-inline">南瓜饼做法：南瓜泥拌面粉调成稠糊，小火少油煎到两面熟、里面软，切小条给她抓着咬；不加糖盐。</p></div></article><article id="d99" class="day-article" data-date="2026-09-09"><header><div><h3>周三 9.9</h3><p class="muted">深海鱼日 · 三文鱼</p></div><span class="tag">深海鱼日</span></header><div class="meal-card"><p class="meal-time">上午 · 正餐 · 10:30</p><h4>三文鱼蔬菜软饭 · 手指食物：家里现成食材现搭</h4><div class="pillars"><span class="pill">碳水 软烂饭</span><span class="pill">蔬菜 番茄/青菜</span><span class="pill">蛋白 三文鱼</span><span class="pill">脂肪 三文鱼 DHA + 核桃油</span></div><div class="two-col"><div><h5>食材</h5><ul><li>三文鱼 20g（去刺压碎）</li><li>番茄/青菜 15g</li><li>软烂饭 20g</li><li>核桃油几滴</li></ul></div><div><h5>做法</h5><ol><li>三文鱼去刺切小块，蒸或低油煎至全熟后压碎。</li><li>番茄、青菜煮软切碎，拌进软烂饭，滴核桃油。</li><li>手指食物家里现成现搭。</li></ol></div></div><p class="note-inline">今天上午不放蛋黄；蛋黄挪到下午的蔬菜鸡蛋饼里，一天总量不变。</p></div><div class="meal-card"><p class="meal-time">下午 · 轻餐 · 16:30</p><h4>牛油果泥 + 蔬菜鸡蛋饼</h4><div class="pillars"><span class="pill">碳水 面粉/燕麦粉</span><span class="pill">蔬菜 当日现有蔬菜</span><span class="pill">蛋白 蛋黄</span><span class="pill">脂肪 牛油果</span></div><div class="two-col"><div><h5>食材</h5><ul><li>牛油果 15~20g（现压现吃）；蔬菜鸡蛋饼：蛋黄 1 个（全熟）+ 面粉/燕麦粉适量 + 家里现有蔬菜碎 15g，少油小火煎熟</li></ul></div><div><h5>做法</h5><ol><li>蛋黄与粉、蔬菜碎调糊，少油小火煎薄煎软，切小块。</li><li>牛油果现压现吃。</li></ol></div></div><p class="note-inline">上周吃过的蔬菜鸡蛋饼做法；做薄做软切小块，牛油果现压现吃。</p></div></article><article id="d910" class="day-article" data-date="2026-09-10"><header><div><h3>周四 9.10</h3><p class="muted">芋头首试 · 虾日</p></div><span class="tag warn">芋头首试</span></header><div class="meal-card"><p class="meal-time">上午 · 正餐 · 10:30</p><h4>鲜虾芋头肉末豆腐羹泡饭（+平菇丁蛋花）</h4><div class="pillars"><span class="pill">碳水 软米饭+芋头</span><span class="pill">蔬菜 芋头+平菇</span><span class="pill">蛋白 虾+猪肉+豆腐+蛋黄</span><span class="pill">脂肪 核桃油</span></div><div class="two-col"><div><h5>食材</h5><ul><li>芋头 20g（蒸透压泥/极细丁）</li><li>鲜虾 10~15g（切碎）</li><li>猪肉末 10g</li><li>嫩豆腐 15g</li><li>平菇 1 小朵（切极细丁煮软）</li><li>蛋花（蛋黄 1 个打散淋入）</li><li>软米饭 15g</li></ul></div><div><h5>做法</h5><ol><li>芋头蒸到完全粉糯再压泥或切极细丁。</li><li>虾去虾线切碎煮熟；猪肉末炒/煮熟。</li><li>豆腐压碎，平菇极细丁煮软，蛋黄打散淋成蛋花。</li><li>与软饭一起做成羹泡饭。</li></ol></div></div><p class="note-inline">芋头首次尝试：蒸到完全粉糯再压泥，留意 1~2 天；平菇若之前没吃过，与芋头同属当天新面孔，先只给少量细丁观察。</p></div><div class="meal-card"><p class="meal-time">下午 · 轻餐 · 16:30</p><h4>苹果山药小米粥 + 小馒头</h4><div class="pillars"><span class="pill">碳水 小米+山药+小馒头</span><span class="pill">蔬菜/水果 苹果</span><span class="pill">蛋白 —</span><span class="pill">脂肪 亚麻籽油</span></div><div class="two-col"><div><h5>食材</h5><ul><li>小米 15g（煮烂）</li><li>山药 15g（蒸熟压泥）</li><li>苹果约 30g（蒸软压泥）</li><li>小馒头撕小块</li><li>亚麻籽油几滴</li></ul></div><div><h5>做法</h5><ol><li>小米煮软烂，拌入山药泥和苹果泥，滴亚麻籽油。</li><li>小馒头撕小块搭配。</li></ol></div></div><p class="note-inline">上午羹里已有蛋花，下午清淡；粥煮到软烂顺滑。</p></div></article><article id="d911" class="day-article" data-date="2026-09-11"><header><div><h3>周五 9.11</h3><p class="muted">牛肉日 · 本周不吃猪肝</p></div><span class="tag">牛肉日</span></header><div class="meal-card"><p class="meal-time">上午 · 正餐 · 10:30</p><h4>土豆牛肉焖饭（蛋黄拌入） · 手指食物：家里现成食材现搭</h4><div class="pillars"><span class="pill">碳水 米饭+土豆</span><span class="pill">蔬菜 土豆+胡萝卜</span><span class="pill">蛋白 牛肉+蛋黄</span><span class="pill">脂肪 核桃油</span></div><div class="two-col"><div><h5>食材</h5><ul><li>牛肉 20~25g（切小粒炖软）</li><li>土豆 20g（切小丁）</li><li>胡萝卜 10g</li><li>软米饭 20g（焖软烂）</li><li>蒸蛋黄 1 个（压碎拌入）</li><li>核桃油几滴</li></ul></div><div><h5>做法</h5><ol><li>牛肉、土豆切小丁焖到软烂；胡萝卜蒸/焖软切碎。</li><li>蛋黄压碎拌进饭里，滴核桃油。</li><li>手指食物家里现成现搭。</li></ol></div></div><p class="note-inline">牛肉土豆切小丁焖到软烂；蛋黄拌进饭里，保证今天的蛋黄量。</p></div><div class="meal-card"><p class="meal-time">下午 · 轻餐 · 16:30</p><h4>芝麻糊 + 小馒头</h4><div class="pillars"><span class="pill">碳水 小馒头</span><span class="pill">蔬菜 —</span><span class="pill">蛋白 —</span><span class="pill">脂肪 黑芝麻+核桃</span></div><div class="two-col"><div><h5>食材</h5><ul><li>黑芝麻粉少量 + 核桃粉少量（温水调稀）</li><li>小馒头撕小块</li></ul></div><div><h5>做法</h5><ol><li>芝麻糊用温水调稀，少量分开喂，不加糖。</li><li>小馒头撕小块搭配。</li></ol></div></div><p class="note-inline">芝麻糊调稀、少量；不加糖。本周猪肝暂停，铁由牛肉×2、猪肉和蛋黄承担。</p></div></article><article id="d912" class="day-article" data-date="2026-09-12"><header><div><h3>周六 9.12</h3><p class="muted">深海鱼日 · 鳕鱼 + 葱花少量尝试</p></div><span class="tag">深海鱼日</span></header><div class="meal-card"><p class="meal-time">上午 · 正餐 · 10:30</p><h4>香煎鳕鱼 + 番茄炒鸡蛋烩饭（少量葱花）</h4><div class="pillars"><span class="pill">碳水 软米饭</span><span class="pill">蔬菜 番茄+葱花</span><span class="pill">蛋白 鳕鱼+蛋</span><span class="pill">脂肪 少量食用油 + 鳕鱼 DHA</span></div><div class="two-col"><div><h5>食材</h5><ul><li>鳕鱼 20g（去刺，薄涂油小火煎至全熟后压碎）</li><li>番茄 20g（去皮切碎）</li><li>鸡蛋炒熟（蛋黄 1 个，或全蛋按家里习惯）</li><li>软米饭 15g（烩软）</li><li>葱花极少量（切末煸熟）</li></ul></div><div><h5>做法</h5><ol><li>鳕鱼去净刺，薄涂油小火煎至全熟，压碎，去掉焦脆硬边。</li><li>番茄去皮切碎煮软，与蛋一起烩入软饭。</li><li>葱花只放一点点、切末煸熟提香。</li></ol></div></div><p class="note-inline">葱花首次少量尝试：只放一点点、切末煸熟提香；鳕鱼煎后压碎、不留焦脆硬边。</p></div><div class="meal-card"><p class="meal-time">下午 · 轻餐 · 16:30</p><h4>香蕉鸡蛋液煎宝宝吐司 + 苹果片 · 抓握：蒸软苹果片</h4><div class="pillars"><span class="pill">碳水 吐司</span><span class="pill">蔬菜/水果 香蕉+苹果</span><span class="pill">蛋白 蛋黄</span><span class="pill">脂肪 少量食用油</span></div><div class="two-col"><div><h5>食材</h5><ul><li>宝宝吐司 1 片（切条）</li><li>香蕉 25g 压泥 + 鸡蛋液（蛋黄为主）浸泡</li><li>少油小火煎软</li><li>苹果蒸软切薄片/软条</li></ul></div><div><h5>做法</h5><ol><li>吐司切条，用香蕉泥+蛋液浸泡后少油小火煎软，不煎脆边。</li><li>苹果务必蒸软或切极薄，作抓握。</li><li>全程看护。</li></ol></div></div><p class="note-inline">吐司煎软、不煎脆边；苹果片务必蒸软或切极薄——生硬苹果片抓握吃有呛噎风险，全程看护。</p></div></article><article id="d913" class="day-article" data-date="2026-09-13"><header><div><h3>周日 9.13</h3><p class="muted">猪肉日 · 咀嚼进阶</p></div><span class="tag">猪肉日</span></header><div class="meal-card"><p class="meal-time">上午 · 正餐 · 10:30</p><h4>猪肉鲜虾玉米小馄饨 · 手指食物：家里现成食材现搭</h4><div class="pillars"><span class="pill">碳水 馄饨皮</span><span class="pill">蔬菜 青菜+玉米</span><span class="pill">蛋白 猪肉+虾</span><span class="pill">脂肪 核桃油</span></div><div class="two-col"><div><h5>食材</h5><ul><li>猪肉 15g + 鲜虾 10g + 玉米粒（蒸熟压碎）做馅</li><li>馄饨皮适量</li><li>青菜 15g</li><li>核桃油几滴</li></ul></div><div><h5>做法</h5><ol><li>猪肉、鲜虾切碎，玉米粒蒸熟压碎做馅。</li><li>包成小馄饨，做小、煮/蒸熟做软。</li><li>青菜焯软切碎搭配；不提供玉米芯。</li></ol></div></div><p class="note-inline">整只小馄饨练咀嚼；玉米只用蒸熟压碎的玉米粒，不提供玉米芯。</p></div><div class="meal-card"><p class="meal-time">下午 · 轻餐 · 16:30</p><h4>百合梨小米粥 + 蒸糕</h4><div class="pillars"><span class="pill">碳水 小米+蒸糕</span><span class="pill">蔬菜/水果 鲜百合+秋梨</span><span class="pill">蛋白 蛋黄</span><span class="pill">脂肪 亚麻籽油</span></div><div class="two-col"><div><h5>食材</h5><ul><li>鲜百合 10g（取瓣蒸软压碎）</li><li>秋梨 20g（去皮蒸软压泥）</li><li>小米 15g（煮烂）</li><li>蒸糕 1 小块（家里现成软蒸糕；蛋黄 1 个可做进蒸糕或拌入粥）</li></ul></div><div><h5>做法</h5><ol><li>小米煮烂，拌入百合压碎与秋梨泥。</li><li>蒸糕选软的无糖款；蛋黄做进蒸糕或拌入粥。</li></ol></div></div><p class="note-inline">鲜百合首次尝试：取瓣蒸到粉糯压碎，配秋梨防秋燥；蒸糕选软的无糖款。</p></div></article>
+</section>
+<section class="tab-panel" data-tab="shop" id="shop">
+<h2>采购清单</h2>
+<div class="table-wrap">
 <table class="ing-list">
     <tr><th>类别</th><th>需采购</th><th>已有 / 常备</th></tr>
     <tr><td>肉蛋水产</td><td>嫩豆腐、猪肉末、鲜虾、平菇（本周不买猪肝）</td><td>猪肉、牛肉、三文鱼、鳕鱼、鸡蛋</td></tr>
     <tr><td>蔬菜水果</td><td>芋头、鲜百合、秋梨、莲藕、番茄、胡萝卜、冬瓜、土豆、南瓜、青菜、玉米、香蕉、苹果、香橙、牛油果等</td><td>—</td></tr>
     <tr><td>主食</td><td>宝宝吐司、蒸糕（或蒸糕材料）、馄饨皮</td><td>米、面、小米、小馒头（口味任选）、核桃油/亚麻籽油、黑芝麻粉</td></tr>
   </table>
-<h2 id="nutrition">营养参考</h2>
+</div>
+</section>
+<section class="tab-panel" data-tab="nutrition" id="nutrition">
+<h2>营养参考</h2>
 <div class="grid">
     <div class="g-card"><b>谷类 20–75g</b><span>粥 / 软饭 / 面 / 焖饭 / 馒头 / 吐司轮换</span></div>
     <div class="g-card"><b>蔬菜 25–100g</b><span>深色蔬菜为主，切小丁</span></div>
@@ -104,6 +66,7 @@ th{background:#f3eee6;color:var(--muted);font-size:12px}
     <div class="g-card"><b>油 0–10g</b><span>核桃油 / 亚麻籽油 / 牛油果 / 黑芝麻</span></div>
   </div>
 <h2>本周营养盘点与总结（9.7–9.13）</h2>
+<div class="table-wrap">
 <table>
     <tr><th style="width:120px">类别</th><th>本周吃了什么</th><th style="width:150px">结论</th></tr>
     <tr><td>肉蛋鱼虾</td><td>猪肉×2+肉末、牛肉×2、三文鱼×1、鳕鱼×1、虾×2、豆腐×1、每天蛋黄（本周不吃猪肝）</td><td>猪/牛/鱼/虾轮换到位，铁靠红肉+蛋黄</td></tr>
@@ -112,11 +75,13 @@ th{background:#f3eee6;color:var(--muted);font-size:12px}
     <tr><td>优质脂肪</td><td>核桃油、亚麻籽油、牛油果、黑芝麻、蛋黄、鱼 DHA</td><td>来源充足</td></tr>
     <tr><td>水果</td><td>香橙、香蕉、苹果、秋梨</td><td>适量、分散安排</td></tr>
   </table>
+</div>
 
   <div class="sec" style="margin-top:16px">
     <b>满足情况</b>：对照《婴幼儿喂养指南 2022》7~12 月龄每日参考量，各项均在范围内；本周不吃猪肝，<b>铁由牛肉×2、猪肉×2 和每天蛋黄承担，仍然充足</b>；奶量约 600ml/天达标、钙充足，无需额外补充钙、铁、DHA。
   </div>
 <h2>补充剂建议</h2>
+<div class="table-wrap">
 <table>
     <tr><th>营养素</th><th>是否额外补</th><th>说明</th></tr>
     <tr><td>钙</td><td>不用</td><td>奶量约 600ml/天达标即可</td></tr>
@@ -124,7 +89,10 @@ th{background:#f3eee6;color:var(--muted);font-size:12px}
     <tr><td>DHA</td><td>不用</td><td>三文鱼+鳕鱼本周各 1 次 + 每天蛋黄 + 配方奶</td></tr>
     <tr><td>维生素 D</td><td><b>要，唯一必须补</b></td><td>400IU/天，指南明确"奶量充足也需补维 D"</td></tr>
   </table>
-<h2 id="notes">注意事项</h2>
+</div>
+</section>
+<section class="tab-panel" data-tab="notes" id="notes">
+<h2>注意事项</h2>
 <div class="sec">
     <ul>
       <li><b>1 岁内不加盐、不加糖</b>，保持食物原味。</li>
@@ -139,15 +107,20 @@ th{background:#f3eee6;color:var(--muted);font-size:12px}
       <li><b>进食安全</b>：坐姿进食、全程监护，块状别太大。</li>
     </ul>
   </div>
-
-<section id="archive" class="sec" style="margin-top:16px">
-  <b>往期周计划</b>
+</section>
+<section class="tab-panel" data-tab="archive" id="archive">
+<h2>往期周计划</h2>
+<section class="sec">
   <ul style="margin:8px 0 0;padding-left:20px">
-    <li><a href="/weeks/2026-09-07.html">2026.9.7 — 9.13（本周归档）</a></li>
-    <li><a href="/weeks/2026-08-31.html">2026.8.31 — 9.6</a></li>
-    <li><a href="/weeks/">全部往期</a></li>
+    <li><a href="weeks/2026-09-07.html">2026.9.7 — 9.13（本周归档）</a></li>
+    <li><a href="weeks/2026-08-31.html">2026.8.31 — 9.6</a></li>
+    <li><a href="weeks/index.html">全部往期</a></li>
   </ul>
 </section>
+</section>
 
-<div class="foot">依据《中国居民膳食指南（2022）》·《中国婴幼儿喂养指南（2022）》7~24 月龄部分 · 生成于 2026-09-07 · 版式对齐 jiaojiaofood 优化结构</div>
-</main></body></html>
+<div class="foot">依据《中国居民膳食指南（2022）》·《中国婴幼儿喂养指南（2022）》7~24 月龄部分 · 生成于 2026-09-07</div>
+</main>
+<script src="assets/today.js?v=3"></script>
+<script src="assets/tabs.js?v=5"></script>
+</body></html>
