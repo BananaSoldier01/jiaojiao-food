@@ -46,9 +46,12 @@
       caption.className = 'today-caption';
       caption.textContent = today.querySelector('h3').textContent + ' · 点开查看做法';
       section.appendChild(caption);
-      today.querySelectorAll('p').forEach(function (row) {
+      today.querySelectorAll('p').forEach(function (row, mealIndex) {
         var link = document.createElement('a');
-        link.href = today.getAttribute('href');
+        var destination = new URL(location.href);
+        destination.searchParams.set('meal', mealIndex);
+        destination.hash = today.getAttribute('href');
+        link.href = destination.href;
         link.className = 'today-meal';
         Array.from(row.children).forEach(function (el) { link.appendChild(el.cloneNode(true)); });
         section.appendChild(link);
@@ -87,10 +90,15 @@
     legacyDates(doc, url);
     var records = [];
     doc.querySelectorAll('.day-article[data-date]').forEach(function (day) {
-      day.querySelectorAll('.meal-card').forEach(function (meal) {
+      day.querySelectorAll('.meal-card').forEach(function (meal, mealIndex) {
         var title = meal.querySelector('h4');
         var time = meal.querySelector('.meal-time');
-        if (title && time) records.push({ date: day.dataset.date, time: time.textContent.trim(), name: title.textContent.trim(), href: url.href + '#' + day.id });
+        if (title && time) {
+          var destination = new URL(url.href);
+          destination.searchParams.set('meal', mealIndex);
+          destination.hash = day.id;
+          records.push({ date: day.dataset.date, time: time.textContent.trim(), name: title.textContent.trim(), href: destination.href });
+        }
       });
     });
     doc.querySelectorAll('.week-card[data-date]').forEach(function (card) {

@@ -528,3 +528,75 @@ h2::before { content:none; }
  .day-article header { flex-wrap:wrap; }
  .ing-list th,.ing-list td { padding:10px 8px; }
 }
+
+/* Integrated mobile menu views, v14. Source HTML remains the content contract. */
+[hidden] { display:none!important; }
+.meal-tabs { display:flex;gap:8px;margin:18px 0; }
+.meal-tabs button,.note-filters button,.categories button { border:1px solid var(--line);border-radius:24px;background:transparent;color:var(--ink);padding:9px 12px;min-height:44px;font-size:14px; }
+.meal-tabs button { flex:1; }
+.meal-tabs button.active,.note-filters button.active,.categories button.active { background:var(--accent);color:white;border-color:var(--accent); }
+.process-switch { display:flex;gap:22px;border-bottom:1px solid var(--line);margin:14px 0 18px; }
+.process-switch button { border:0;border-bottom:3px solid transparent;background:transparent;color:var(--muted);padding:10px 2px;min-height:46px; }
+.process-switch button.active { color:var(--accent);border-bottom-color:var(--accent);font-weight:600; }
+.recipe-columns { display:block; }
+.recipe-ingredients ul { list-style:none;padding:0;margin:0;border:1px solid var(--line);border-radius:14px;overflow:hidden; }
+.recipe-ingredients li { margin:0;border-top:1px solid var(--line);padding:13px; }
+.recipe-ingredients li:first-child { border:0; }
+.recipe-ingredients label,.shopping-list label { display:flex;gap:12px;align-items:flex-start;cursor:pointer; }
+.recipe-ingredients input,.shopping-list input { flex-shrink:0;width:21px;height:21px;margin:4px 0 0;accent-color:var(--sage); }
+.recipe-ingredients input:checked+span { text-decoration:line-through;color:var(--muted); }
+.recipe-steps ol { list-style:none;counter-reset:step;padding:0;margin:0; }
+.recipe-steps li { display:grid;grid-template-columns:25px 1fr;gap:12px;border:1px solid var(--line);padding:16px 12px;border-radius:14px;margin-bottom:12px;line-height:1.85; }
+.recipe-steps li::before { counter-increment:step;content:counter(step,decimal-leading-zero);color:var(--accent);font-size:14px;font-weight:600; }
+/* Original step HTML can contain inline elements; keep them in one text column. */
+.recipe-steps li { display:block;position:relative;padding-left:48px; }
+.recipe-steps li::before { position:absolute;left:14px; }
+.next-action { width:100%;border:0;border-radius:14px;background:var(--accent);color:white;min-height:48px;padding:12px;margin-top:16px; }
+.day-article > header .muted { display:none; }
+.meal-card h4 { font-family:"Songti SC","STSong",serif;font-size:25px; }
+.composition,.source,.reading-block { margin-top:18px;border-top:1px solid var(--line);padding:10px 0;font-size:14px; }
+.composition summary,.source summary,.reading-block summary { min-height:44px;padding:10px 0;color:var(--accent);cursor:pointer; }
+.source > p,.reading-block p { line-height:1.9; }
+.recipe-image-dialog { width:min(650px,95vw);max-height:90dvh;padding:20px;border:1px solid var(--line);border-radius:18px;background:var(--paper);color:var(--ink); }
+.recipe-image-dialog::backdrop { background:#382f2677; }
+.recipe-image-dialog img { width:100%;height:auto;display:block; }
+.recipe-image-dialog p { font-size:14px; }
+.recipe-image-dialog button,.image-open { padding:10px 16px;min-height:44px;border:1px solid var(--line);border-radius:20px;background:var(--paper);color:var(--accent);margin-bottom:12px; }
+.shopping-progress { color:var(--sage);font-size:13px; }
+.categories { display:flex;gap:8px;overflow-x:auto;padding:6px 0 12px;margin-bottom:15px; }
+.categories button { flex-shrink:0; }
+.shopping-list { list-style:none;padding:0;margin:14px 0; }
+.shopping-list li { background:var(--paper);border:1px solid var(--line);border-radius:14px;margin:9px 0; }
+.shopping-list label { padding:15px; }
+.shopping-list strong { display:block;font-size:16px;font-weight:600; }
+.shopping-list small { display:block;font-size:13px;color:var(--muted);margin-top:4px;line-height:1.7; }
+.shopping-list .checked strong { text-decoration:line-through;color:var(--muted); }
+.restriction { margin:20px 0;padding:17px;background:#ecefdf;border-radius:16px;font-size:14px;line-height:1.85; }
+.restriction h3 { margin-top:0; }
+.nutrition-highlights { display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin:22px 0; }
+.nutrition-highlights article { background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:14px 10px; }
+.nutrition-highlights small { color:var(--muted);font-size:12px; }
+.nutrition-highlights h3 { font-size:16px;margin:5px 0 9px; }
+.nutrition-highlights strong { color:var(--accent);font-size:17px; }
+.nutrition-highlights p { font-size:12px;color:var(--muted);margin:7px 0 0; }
+.food-group { background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:5px 16px;margin:12px 0; }
+.food-group summary { min-height:54px;padding:12px 0;color:var(--ink);cursor:pointer;font-size:16px;font-weight:600; }
+.food-group .g-card { border:0;padding:12px 0; }
+.food-group .pillars { padding:12px 0; }
+.record-row { padding:14px 0;border-top:1px solid var(--line); }
+.record-row h3 { font-size:16px;margin:0; }
+.record-row p { margin:8px 0;font-size:14px; }
+.note-filters { display:flex;gap:7px;overflow-x:auto;padding:6px 0 12px; }
+.note-filters button { flex-shrink:0; }
+.note-card { border:1px solid var(--line);border-radius:18px;background:var(--paper);padding:20px 17px;margin:14px 0; }
+.note-card h3 { margin:0 0 14px;font:600 23px/1.5 "Songti SC",serif; }
+.note-body { font-size:15px;line-height:1.9; }
+.archive-list { padding:12px 18px; }
+.archive-month { color:var(--accent);font-size:14px;font-weight:600;list-style:none; }
+.archive-list li.archive-month { padding-top:22px;border:0; }
+.archive-list li.archive-month:first-child { padding-top:8px; }
+@media(max-width:350px) { .nutrition-highlights { gap:5px; }.nutrition-highlights article { padding:12px 7px; }.nutrition-highlights strong { font-size:15px; }.meal-card { padding:16px 12px; } }
+.note-body p { margin:0;padding:10px 0;border-top:1px solid var(--line); }
+.note-body p:first-child { padding-top:0;border-top:0; }
+.note-body p:last-child { padding-bottom:0; }
+.archive-navigation nav { grid-template-columns:repeat(2,minmax(0,1fr)); }
