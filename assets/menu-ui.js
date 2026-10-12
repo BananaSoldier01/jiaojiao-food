@@ -76,6 +76,55 @@
     if (target) requestAnimationFrame(() => window.scrollTo(0, target.getBoundingClientRect().top + window.scrollY - header.offsetHeight - 12));
   }
   if (!document.querySelector('.topnav [data-tab]')) document.querySelector('.topnav')?.classList.add('archive-navigation');
+  const brand = document.querySelector('.topnav .brand');
+  if (brand) {
+    const mark = make('span', 'banana-mark');
+    mark.setAttribute('aria-hidden', 'true');
+    mark.innerHTML = '<svg viewBox="0 0 96 80" focusable="false"><path d="M74 23l4-14 8 3-6 15" fill="#99805a" stroke="#856b41" stroke-width="3" stroke-linejoin="round"/><path d="M16 37c14 13 43 7 58-14l7 4C77 54 56 69 35 62 22 58 15 48 13 41Z" fill="#ead18a" stroke="#a58a4d" stroke-width="2.5" stroke-linejoin="round"/><path d="M21 44c19 16 43 4 54-13" fill="none" stroke="#b19853" stroke-width="2" stroke-linecap="round"/><path d="M13 41l-3-5 6-2 3 5" fill="#99805a" stroke="#856b41" stroke-width="2" stroke-linejoin="round"/></svg>';
+    const title = make('span', 'brand-title');
+    const name = make('span');
+    [...brand.childNodes].filter(node => node.nodeType === Node.TEXT_NODE).forEach(node => name.append(node));
+    title.append(name, mark);
+    brand.prepend(title);
+  }
+  document.querySelectorAll('.week-context .focus p').forEach(p => {
+    if (p.querySelector('a')) return;
+    const parts = []; let part = '', depth = 0;
+    const flush = () => { if (part.trim()) parts.push(part.trim()); part = ''; };
+    for (const char of p.textContent) {
+      if ('（('.includes(char)) depth++;
+      if ('）)'.includes(char)) depth--;
+      if (!depth && '①②③④⑤'.includes(char)) flush();
+      part += char;
+      if (!depth && '。；'.includes(char)) flush();
+    }
+    flush();
+    if (parts.length > 1) p.replaceWith(...parts.map(text => make('p', '', text)));
+  });
+  // Show a few source-backed highlights first; keep every original detail available.
+  document.querySelectorAll('.week-context').forEach(context => {
+    const badges = context.querySelector(':scope > .badges');
+    const grid = context.querySelector(':scope > .focus-grid');
+    if (!badges || !grid) return;
+    const rows = [...badges.querySelectorAll('.badge')];
+    const selected = [rows[0], rows.find(row => /新引入|新食物/.test(row.textContent)), rows.find(row => /不加盐|无盐/.test(row.textContent))].filter((row, i, all) => row && all.indexOf(row) === i);
+    const highlights = make('ul', 'context-highlights');
+    selected.forEach(row => highlights.append(make('li', '', row.textContent.trim())));
+    badges.before(highlights);
+    const background = details('喂养数据与完整摘要', [], 'context-detail');
+    badges.before(background); background.append(badges);
+    [...grid.children].forEach(card => {
+      const title = card.querySelector(':scope > b, :scope > strong, :scope > h3');
+      const box = details(title?.textContent || '本周详细说明', [], 'context-detail');
+      if (title) title.hidden = true;
+      card.before(box); box.append(card);
+      if (/要买|常备|采购/.test(title?.textContent || '') && document.getElementById('shop')) {
+        const link = make('a', 'context-shop-link', '打开采购清单 →'); link.href = '#shop';
+        box.before(link);
+      }
+    });
+    context.classList.add('context-condensed');
+  });
   const dayStates = new Map();
   document.querySelectorAll('.day-article').forEach(day => {
     const meals = [...day.querySelectorAll('.meal-card')];
@@ -97,7 +146,33 @@
       if (ingredient && method) {
         const tools = make('div', 'process-switch');
         tools.setAttribute('aria-label', '备食材或看做法');
+        const peek = button('查食材', () => {
+          const popup = make('dialog', 'ingredient-sheet');
+          popup.setAttribute('aria-label', '本餐食材');
+          const close = button('返回做法', () => popup.close());
+          const heading = make('div', 'sheet-heading');
+          heading.append(make('h2', '', '本餐食材'), close);
+          const list = ingredient.querySelector('ul,table')?.cloneNode(true);
+          if (!list) return;
+          list.querySelectorAll('input').forEach((input, i) => {
+            const original = ingredient.querySelectorAll('input')[i];
+            input.checked = original.checked;
+            input.addEventListener('change', () => { original.checked = input.checked; });
+          });
+          const body = make('div', 'recipe-ingredients'); body.append(list);
+          popup.append(heading, make('p', 'sheet-title', meal.querySelector('h4')?.textContent || ''), body);
+          document.body.append(popup);
+          const y = window.scrollY;
+          document.body.classList.add('ingredient-open');
+          popup.addEventListener('close', () => {
+            document.body.classList.remove('ingredient-open'); popup.remove();
+            peek.focus({ preventScroll: true }); window.scrollTo({ top: y, behavior: 'instant' });
+          });
+          popup.showModal();
+        });
+        peek.className = 'ingredient-peek';
         const setMode = mode => {
+          peek.hidden = mode !== 'steps';
           ingredient.hidden = mode !== 'ingredients';
           method.hidden = mode !== 'steps';
           if (figure) figure.hidden = mode !== 'steps';
@@ -105,6 +180,7 @@
         };
         tools.append(button('备食材', () => setMode('ingredients')), button('看做法', () => setMode('steps')));
         columns.before(tools);
+        meal.append(peek);
         columns.classList.add('recipe-columns');
         ingredient.classList.add('recipe-ingredients');
         method.classList.add('recipe-steps');
@@ -117,7 +193,7 @@
         const next = button('食材备好了，看做法 →', () => {
           setMode('steps');
           tools.children[1].focus({ preventScroll: true });
-          window.scrollTo({ top: tools.getBoundingClientRect().top + window.scrollY - 180, behavior: 'auto' });
+          window.scrollTo({ top: tools.getBoundingClientRect().top + window.scrollY - (window.innerWidth < 800 ? 120 : 190), behavior: 'instant' });
         });
         next.className = 'next-action'; ingredient.append(next);
         setMode('ingredients');

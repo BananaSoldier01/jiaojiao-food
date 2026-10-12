@@ -600,3 +600,83 @@ h2::before { content:none; }
 .note-body p:first-child { padding-top:0;border-top:0; }
 .note-body p:last-child { padding-bottom:0; }
 .archive-navigation nav { grid-template-columns:repeat(2,minmax(0,1fr)); }
+
+/* Local mobile reading preview: keeps the weekly source contract unchanged. */
+.week-context .badges { display:grid;grid-template-columns:1fr;gap:0;margin:12px 0 24px; }
+.week-context .badge { display:block;background:transparent;border:0;border-bottom:1px solid var(--line);border-radius:0;padding:12px 0;font-size:15px;line-height:1.9; }
+.week-context .badge .dot { display:none; }
+.week-context .focus-grid { gap:20px; }
+.week-context .focus { padding:20px; }
+.week-context .focus > b { display:block;font-size:18px;margin-bottom:14px; }
+.week-context .focus p { font-size:15px;line-height:2;margin:12px 0; }
+.ingredient-peek { position:fixed;right:max(18px,calc((100vw - 960px)/2));bottom:calc(20px + env(safe-area-inset-bottom));z-index:25;min-height:48px;border:1px solid var(--line);border-radius:26px;background:var(--accent);color:white;padding:10px 22px;box-shadow:0 4px 18px #382f2630; }
+.ingredient-open { overflow:hidden; }
+.ingredient-sheet { width:min(600px,100%);max-height:80dvh;margin:auto auto 0;padding:22px 20px calc(24px + env(safe-area-inset-bottom));border:1px solid var(--line);border-radius:24px 24px 0 0;background:var(--paper);color:var(--ink);overscroll-behavior:contain; }
+.ingredient-sheet::backdrop { background:#382f2677; }
+.sheet-heading { display:flex;align-items:center;justify-content:space-between;gap:12px; }
+.sheet-heading h2 { font-size:22px;margin:0; }
+.sheet-heading button { min-height:44px;padding:8px 14px;border:1px solid var(--line);border-radius:24px;background:transparent;color:var(--accent); }
+.sheet-title { font-size:15px;color:var(--muted);margin:16px 0; }
+@media(max-width:799px) {
+ html { scroll-behavior:auto; }
+ .topnav { top:calc(-1 * var(--brand-h,82px)); }
+ .topnav nav { padding-bottom:6px; }
+ .day-nav { position:static;margin-bottom:12px; }
+ #daily > h2,.day-article > header { display:none; }
+ .day-article .meal-tabs { position:sticky;top:var(--compact-nav-h,56px);z-index:16;background:var(--bg);padding:8px 0;margin:0; }
+ .meal-card { margin-top:4px;padding:16px 14px 68px;border:0;border-radius:16px; }
+ .meal-card .meal-time,.recipe-columns h5 { display:none; }
+ .meal-card h4 { font-size:22px;line-height:1.55;margin:0 0 16px; }
+ .recipe-columns { margin-top:16px; }
+ .recipe-ingredients ul { border:0;border-radius:0; }
+ .recipe-ingredients li { padding:14px 0;line-height:1.9; }
+ .recipe-steps li { border:0;border-bottom:1px solid var(--line);border-radius:0;padding:18px 0 18px 36px;margin:0;line-height:1.95; }
+ .recipe-steps li::before { left:0;top:20px; }
+ .week-context .focus-grid { grid-template-columns:1fr; }
+}
+
+/* Overview: a short first read, with original details available on demand. */
+.context-highlights { list-style:none;padding:0;margin:10px 0 18px; }
+.context-highlights li { padding:9px 0 9px 14px;border-left:3px solid var(--sage);margin:10px 0;font-size:15px;line-height:1.8; }
+.context-condensed .focus-grid { display:block;margin:0; }
+.context-detail { border-top:1px solid var(--line); }
+.context-detail > summary { padding:14px 0;color:var(--ink);font-size:15px;font-weight:600; }
+.context-detail .focus { background:transparent;padding:0 0 14px; }
+.context-detail .focus > [hidden] { display:none!important; }
+.context-shop-link { display:block;min-height:48px;padding:12px 0;color:var(--accent);font-size:15px;text-decoration:none;border-top:1px solid var(--line); }
+
+/* Quiet table details: decoration stays outside recipe text and controls. */
+.banana-mark { display:inline-block;width:31px;height:30px;margin-left:7px;vertical-align:-6px;pointer-events:none;user-select:none; }
+.banana-mark svg { display:block;width:100%;height:100%; }
+.today-menu { position:relative;border-top:5px solid #dedec9;box-shadow:0 5px 0 -2px var(--bg),0 6px 0 -2px #e2d7c3; }
+.today-menu::before { content:'';display:block;height:5px;margin:-12px -9px 16px;background:repeating-linear-gradient(90deg,#b3b993 0 3px,transparent 3px 8px) left center / 100% 1px no-repeat;pointer-events:none; }
+#overview > h2 { display:flex;align-items:center;gap:14px; }
+#overview > h2::after { content:'';flex:1;height:1px;background:repeating-linear-gradient(90deg,#d5c7b0 0 5px,transparent 5px 10px);pointer-events:none; }
+#overview .week-card { border-color:#e3d7c3;box-shadow:0 3px 0 -1px #eee5d6; }
+#overview .week-card-top { padding-bottom:9px;border-bottom:1px dashed #e3d7c3; }
+@media(max-width:350px) { .brand { font-size:21px; }.banana-mark { width:27px;margin-left:5px; } }
+
+.brand-title { display:flex;align-items:center;gap:7px;width:max-content;max-width:100%; }
+.brand-title .banana-mark { flex:none;margin:0;vertical-align:baseline;transform:translateY(2px); }
+
+/* Shared stationery language: one paper surface per reading group. */
+.tab-panel > h2:not(#daily > h2) { display:flex;align-items:center;gap:14px; }
+.tab-panel > h2:not(#daily > h2)::after { content:'';flex:1;height:1px;background:repeating-linear-gradient(90deg,#d5c7b0 0 5px,transparent 5px 10px);pointer-events:none; }
+.meal-card,.note-card,.shopping-list,.archive-list {
+ background:var(--paper);border:1px solid var(--line);border-top:5px solid #dedec9;border-radius:20px;
+ box-shadow:0 5px 0 -2px var(--bg),0 6px 0 -2px #e2d7c3;
+}
+.meal-card::before,.note-card::before { content:'';display:block;height:1px;margin:0 0 18px;background:repeating-linear-gradient(90deg,#b3b993 0 3px,transparent 3px 8px);pointer-events:none; }
+.shopping-list { padding:8px 16px;margin-bottom:24px; }
+.shopping-list li { background:transparent;border:0;border-top:1px solid var(--line);border-radius:0;margin:0; }
+.shopping-list li:first-child { border-top:1px dashed #b3b993; }
+.shopping-list label { padding:16px 0; }
+.food-group { border-top:3px solid #dedec9;box-shadow:0 3px 0 -1px #eee5d6; }
+.food-group[open] > summary { border-bottom:1px dashed #d5c7b0; }
+.nutrition-highlights article { border-top:3px solid #dedec9;box-shadow:0 3px 0 -1px #eee5d6; }
+.archive-list { padding:12px 18px 18px; }
+.archive-list li.archive-month { border-bottom:1px dashed #d5c7b0;margin-bottom:3px;padding-bottom:10px; }
+@media(max-width:799px) {
+ .meal-card { padding-top:14px; }
+ .meal-card::before { margin-bottom:14px; }
+}

@@ -35,7 +35,21 @@
     });
   }
 
+  var lastDayId = null;
+  var positions = new Map();
+  var activeKey = null;
+  var restoring = false;
+  window.addEventListener("scroll", function () {
+    if (activeKey && !restoring) positions.set(activeKey, window.scrollY);
+  }, { passive: true });
+
   function show(tab, focusId) {
+    if (tab === "daily") {
+      focusId = focusId || lastDayId || todayDayId();
+      lastDayId = focusId;
+    }
+    activeKey = tab === "daily" ? "daily:" + focusId : tab;
+    restoring = true;
     panels.forEach(function (p) {
       p.classList.toggle("is-on", p.getAttribute("data-tab") === tab);
     });
@@ -47,7 +61,8 @@
     if (tab === "daily") showDay(focusId);
     syncTopnavH();
     requestAnimationFrame(function () {
-      window.scrollTo(0, 0);
+      window.scrollTo({ top: positions.get(activeKey) || 0, behavior: "instant" });
+      requestAnimationFrame(function () { restoring = false; });
     });
   }
 
@@ -60,6 +75,11 @@
     var nav = document.querySelector(".topnav");
     var day = document.querySelector(".day-nav");
     if (nav) {
+      var menu = nav.querySelector("nav");
+      if (menu) {
+        document.documentElement.style.setProperty("--brand-h", menu.offsetTop + "px");
+        document.documentElement.style.setProperty("--compact-nav-h", (nav.offsetHeight - menu.offsetTop) + "px");
+      }
       document.documentElement.style.setProperty(
         "--topnav-h",
         Math.ceil(nav.getBoundingClientRect().height) + "px"
