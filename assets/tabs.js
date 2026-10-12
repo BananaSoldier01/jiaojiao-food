@@ -11,7 +11,7 @@
     if (day && day.classList.contains("day-article")) {
       return { tab: "daily", focus: hash };
     }
-    if (document.querySelector('.tab-panel[data-tab="' + hash + '"]')) {
+    if (Array.from(panels).some(function (panel) { return panel.dataset.tab === hash; })) {
       return { tab: hash, focus: null };
     }
     return { tab: "overview", focus: null };
@@ -40,6 +40,8 @@
       p.classList.toggle("is-on", p.getAttribute("data-tab") === tab);
     });
     links.forEach(function (a) {
+      if (a.getAttribute("data-tab") === tab) a.setAttribute("aria-current", "page");
+      else a.removeAttribute("aria-current");
       a.classList.toggle("is-on", a.getAttribute("data-tab") === tab);
     });
     if (tab === "daily") showDay(focusId);
@@ -74,5 +76,6 @@
   window.addEventListener("hashchange", apply);
   window.addEventListener("resize", syncTopnavH);
   syncTopnavH();
+  document.addEventListener("DOMContentLoaded", apply);
   apply();
 })();
