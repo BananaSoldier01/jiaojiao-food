@@ -106,3 +106,5 @@
 本地检查：先在项目根目录运行 `python3 -m http.server 8765 --bind 127.0.0.1`，然后在已安装 Playwright 与 Chromium 的环境运行 `node tests/mobile-ui.cjs`。可用 `BASE_URL` 指定其他本地服务地址。不需要管家每周配置测试环境。
 
 本次整合的本地验收范围、旧归档修复与未验证项见 [本地验收记录](docs/2026-10-12-integrated-local-checks.md)。
+
+发布状态与线上主要功能检查见 [v14 发布记录](docs/2026-10-12-v14-release.md)。
