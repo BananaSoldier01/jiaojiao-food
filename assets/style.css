@@ -680,3 +680,39 @@ h2::before { content:none; }
  .meal-card { padding-top:14px; }
  .meal-card::before { margin-bottom:14px; }
 }
+
+/* Dish library: keep the stationery surfaces, browse dishes and weekly records separately. */
+.library-caption { font-size:14px;color:var(--muted);margin:8px 0 18px; }
+.library-tabs { display:flex;border-bottom:1px solid var(--line);gap:22px;margin-bottom:20px; }
+.library-tabs button { border:0;border-bottom:3px solid transparent;background:transparent;padding:12px 2px;min-height:48px;color:var(--muted); }
+.library-tabs button.active { color:var(--accent);border-bottom-color:var(--accent);font-weight:600; }
+.dish-filters { display:flex;gap:7px;overflow:auto;padding:14px 0 8px; }
+.dish-filters button { white-space:nowrap;min-height:44px;padding:8px 12px;border:1px solid var(--line);border-radius:22px;background:transparent;color:var(--ink);font-size:13px; }
+.dish-filters button.active { background:var(--accent);color:white;border-color:var(--accent); }
+.dish-grid { display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:18px; }
+.dish-card { display:flex;flex-direction:column;align-items:flex-start;gap:9px;min-width:0;padding:17px;text-align:left;color:var(--ink);background:var(--paper);border:1px solid var(--line);border-top:4px solid #dedec9;border-radius:18px;box-shadow:0 4px 0 -2px var(--bg),0 5px 0 -2px #e2d7c3; }
+.dish-kind { color:var(--sage);font-size:12px; }
+.dish-name { display:block;font:600 22px/1.5 "Songti SC","STSong",serif; }
+.dish-tags { font-size:13px;color:var(--muted);line-height:1.8; }
+.dish-card-meta { display:block;font-size:12px;color:var(--muted);padding-top:11px;margin-top:auto;width:100%;border-top:1px dashed var(--line); }
+.dish-more { display:block;margin:22px auto 0;padding:10px 22px;min-height:46px;border:1px solid var(--line);border-radius:24px;background:var(--paper);color:var(--accent); }
+.dish-detail { width:min(680px,calc(100% - 20px));max-height:calc(100dvh - 24px);padding:0 22px 24px;border:1px solid var(--line);border-top:5px solid #dedec9;border-radius:22px;background:var(--paper);color:var(--ink);overscroll-behavior:contain; }
+.dish-detail::backdrop { background:#382f2680; }
+.dish-detail-head { display:flex;align-items:center;justify-content:space-between;gap:12px;position:sticky;top:0;background:var(--paper);padding:18px 0 12px;border-bottom:1px dashed var(--line);z-index:1; }
+.dish-detail-head h2 { font:600 24px/1.5 "Songti SC",serif;margin:0; }
+.dish-detail-intro,.dish-empty-note,.dish-original-label { font-size:14px;line-height:1.85;color:var(--muted); }
+.dish-version-label { display:block;font-size:13px;margin:18px 0 6px;color:var(--muted); }
+.dish-version { display:block;width:100%;min-width:0;min-height:48px;border:1px solid var(--line);border-radius:12px;padding:10px;font-size:15px;color:var(--ink);background:var(--bg); }
+.dish-detail-body h3 { font-size:17px;margin:25px 0 12px; }
+.dish-ingredients { list-style:none;padding:0;margin:0; }
+.dish-ingredients li { padding:12px 0;border-bottom:1px solid var(--line);font-size:16px;line-height:1.9; }
+.dish-steps { padding-left:24px;margin:0; }
+.dish-steps li { padding:8px 0 12px 6px;font-size:16px;line-height:1.95; }
+.dish-steps li::marker { color:var(--accent);font-weight:600; }
+.dish-source-note { margin-top:18px;border-top:1px solid var(--line);font-size:14px; }
+.dish-source-note summary { cursor:pointer;min-height:44px;padding:12px 0;color:var(--accent); }
+.dish-source-note p { line-height:1.9; }
+.dish-source-link { display:block;min-height:48px;padding:15px 0 0;font-size:15px; }
+.dish-context-warning { font-size:14px;padding:12px;background:#eeefdf;border-radius:12px; }
+.library-fallback { display:block;padding:12px;font-size:14px; }
+@media(max-width:600px) { .dish-grid { grid-template-columns:1fr; }.dish-card { padding:18px; }.dish-name { font-size:22px; }.dish-detail { padding:0 17px 20px; }.meal-search { padding:18px; } }
