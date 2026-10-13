@@ -70,9 +70,7 @@
       script.onload = resolve; script.onerror = reject; document.head.appendChild(script);
     });
   }
-  window.DishLibraryReady = loadScript('dish-core.js').then(function () {
-    return loadScript('dish-library.js');
-  }).then(function () { return window.DishLibrary.mount(base, scriptURL.search); }).catch(function () {
+  window.DishLibraryReady = Promise.all([loadScript('dish-core.js'), loadScript('dish-library.js')]).then(function () { return window.DishLibrary.mount(base, scriptURL.search); }).catch(function () {
     var link = document.createElement('a');
     link.href = new URL('weeks/index.html', base).href;
     link.className = 'library-fallback';

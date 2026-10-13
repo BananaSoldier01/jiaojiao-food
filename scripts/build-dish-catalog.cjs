@@ -8,6 +8,6 @@ const Core=require('../assets/dish-core.js'),curate=require('./dish-curation.cjs
  const sources=[];const seen=new Set();
  for(const file of files){const rows=await page.evaluate(({html,file})=>DishCore.parse(new DOMParser().parseFromString(html,'text/html'),new URL(file,'https://menu.local/')),{html:fs.readFileSync(file,'utf8'),file});for(const row of rows)if(!seen.has(row.key)){seen.add(row.key);const prior=priorSources.get(row.key);if(prior&&Core.signature(prior)!==Core.signature(row)&&!process.argv.includes('--accept-reviewed-changes'))throw new Error('Source changed; review assignments before accepting: '+row.key);sources.push(curate(row))}}
  const catalog=Core.build(sources,sources);catalog.sources=sources;
- fs.writeFileSync('assets/dish-catalog.json',JSON.stringify(catalog,null,2)+'\n');
+ fs.writeFileSync('assets/dish-catalog.json',JSON.stringify({schemaVersion:1,sources})+'\n');
  console.log(JSON.stringify({sources:sources.length,dishes:catalog.dishes.length,variants:catalog.dishes.reduce((n,d)=>n+d.variants.length,0),withSteps:catalog.dishes.filter(d=>d.variants.some(v=>v.steps.length)).length}));
 }finally{await browser.close()}})().catch(e=>{console.error(e);process.exitCode=1});

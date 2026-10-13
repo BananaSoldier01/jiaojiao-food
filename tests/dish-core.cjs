@@ -1,13 +1,13 @@
 const assert=require('node:assert/strict');
 const Core=require('../assets/dish-core.js'),snapshot=require('../assets/dish-catalog.json');
 const dishes=Core.build(snapshot.sources,snapshot.sources).dishes;
-assert.equal(dishes.length,snapshot.dishes.length);
+assert.equal(dishes.length,147);
 assert.equal(new Set(dishes.map(d=>d.name)).size,dishes.length);
 const beef=dishes.filter(d=>Core.matches(d,'牛肉')).map(d=>d.name);
 assert(beef.includes('牛肉小馄饨')&&beef.includes('苹果洋葱奶酪牛肉饼')&&beef.includes('白萝卜炖牛腩'));
 assert(!beef.some(name=>/\+|蛏子|小油菜|软饭/.test(name)));
 assert.equal(dishes.filter(d=>d.name==='苹果洋葱奶酪牛肉饼').length,1);
-const pastry=dishes.find(d=>d.name==='苹果洋葱奶酪牛肉饼');assert.equal(pastry.variants.length,2);
+const pastry=dishes.find(d=>d.name==='苹果洋葱奶酪牛肉饼');assert.equal(pastry.variants.length,2);assert.equal(pastry.variants.find(v=>v.date==='2026-10-08').label,'苹果奶酪牛肉饼');
 assert(pastry.variants.every(v=>v.ingredients.every(x=>!x.includes('西兰花')&&!x.includes('生菜')&&!x.includes('软米'))));
 assert.equal(Core.splitTitle('鲜虾豆腐羹（+蛋花） + 米饭').length,2);
 assert.equal(Core.splitTitle('菜（未闭合 + 米饭').length,1);

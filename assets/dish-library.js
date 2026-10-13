@@ -5,37 +5,85 @@
  const button = (text, handler, cls) => {const node=el('button',cls,text);node.type='button';node.addEventListener('click',handler);return node;};
  window.DishLibrary = { mount(base, version) {
   const Core=window.DishCore, cache=new Map(), views=[];
-  let dishes=[], loading=null, loaded=false, failures=0, reviewMissing=false, weeklyLinks=[];
-  const fetchJSON = async url => {
-   const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),12000);
-   try {const r=await fetch(url,{signal:controller.signal,cache:'no-cache'});if(!r.ok)throw new Error('HTTP '+r.status);return await r.json();}finally{clearTimeout(timer);}
-  };
+  let dishes=[], loading=null, loaded=false, failures=0, reviewMissing=false, weeklyLinks=[], reviewedSnapshot=null;
+  // Bound all network work together, including retries, so archives cannot swamp the catalog.
+  let activeRequests=0;
+  const requestQueue=[];
+  function withNetworkSlot(work) {
+   return new Promise((resolve,reject)=>{
+    requestQueue.push({work,resolve,reject});pump();
+   });
+  }
+  function pump() {
+   while(activeRequests<4 && requestQueue.length){
+    const job=requestQueue.shift();activeRequests++;
+    Promise.resolve().then(job.work).then(job.resolve,job.reject).finally(()=>{activeRequests--;pump();});
+   }
+  }
+  async function request(url,read) {
+   for(let attempt=0;attempt<2;attempt++){
+    try{return await withNetworkSlot(async()=>{
+     const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),30000);
+     try{
+      const response=await fetch(url,{signal:controller.signal,cache:'no-cache'});
+      if(!response.ok){const error=new Error('HTTP '+response.status);error.retryable=response.status>=500||response.status===408||response.status===429;throw error;}
+      return await read(response);
+     }finally{clearTimeout(timer);}
+    });}catch(error){
+     if(attempt===1||error.retryable===false)throw error;
+     await new Promise(resolve=>setTimeout(resolve,250));
+    }
+   }
+  }
+  async function fetchSnapshot() {
+   if(reviewedSnapshot)return reviewedSnapshot;
+   const snapshot=await request(new URL('assets/dish-catalog.json'+version,base),async response=>{
+    const value=await response.json();
+    if(value.schemaVersion!==1||!Array.isArray(value.sources))throw new Error('catalog');
+    return value;
+   });
+   reviewedSnapshot=snapshot;return snapshot;
+  }
   async function fetchDoc(url) {
    if(cache.has(url.href))return cache.get(url.href);
-   const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),12000);
-   try {const r=await fetch(url.href,{signal:controller.signal,cache:'no-cache'});if(!r.ok)throw new Error('HTTP '+r.status);const doc=new DOMParser().parseFromString(await r.text(),'text/html');cache.set(url.href,doc);return doc;}finally{clearTimeout(timer);}
+   const doc=await request(url.href,async response=>new DOMParser().parseFromString(await response.text(),'text/html'));
+   cache.set(url.href,doc);return doc;
   }
   function refresh() {views.forEach(view=>view.render());}
   async function load() {
    if(loading)return loading;
    failures=0;reviewMissing=false;
    loading=(async()=>{
-    let current,list,snapshot;
+    let current=null,snapshot=null,currentReady=false,snapshotReady=false;
     const currentURL=new URL('index.html',base),listURL=new URL('weeks/index.html',base);
+    const urls=new Map(),archiveRows=new Map(),archiveJobs=[];
+    function publish() {
+     // Wait for current precedence and reviewed attribution, but not every historical page.
+     if(!currentReady||!snapshotReady)return;
+     const sources=current?Core.parse(current,currentURL):[];
+     weeklyLinks.forEach(item=>sources.push(...(archiveRows.get(item.url.href)||[])));
+     dishes=Core.build(sources,snapshot?.sources||[]).dishes;
+     loaded=true;refresh();
+    }
+    function discover(doc,page){
+     if(!doc)return;
+     doc.querySelectorAll('a[href]').forEach(a=>{
+      let u;try{u=new URL(a.getAttribute('href'),page);}catch(_){return;}
+      if(u.origin!==base.origin||!u.pathname.startsWith(base.pathname+'weeks/')||!/\/\d{4}-\d{2}-\d{2}\.html$/.test(u.pathname))return;
+      u.hash='';u.search='';if(urls.has(u.href))return;
+      urls.set(u.href,{url:u,label:a.textContent.trim()});
+      // Begin archives as soon as either index discovers them; do not wait for JSON.
+      archiveJobs.push(fetchDoc(u).then(doc=>{archiveRows.set(u.href,Core.parse(doc,u));}).catch(()=>{failures++;}).finally(publish));
+     });
+     weeklyLinks=[...urls.values()].sort((a,b)=>b.url.pathname.localeCompare(a.url.pathname));
+     renderWeeks();
+    }
     await Promise.all([
-     fetchDoc(currentURL).then(x=>{current=x;}).catch(()=>{failures++;}),
-     fetchDoc(listURL).then(x=>{list=x;}).catch(()=>{failures++;}),
-     fetchJSON(new URL('assets/dish-catalog.json'+version,base)).then(x=>{if(x.schemaVersion!==1 || !Array.isArray(x.sources))throw new Error('catalog');snapshot=x;}).catch(()=>{reviewMissing=true;})
+     fetchDoc(currentURL).then(doc=>{current=doc;discover(doc,currentURL);}).catch(()=>{failures++;}).finally(()=>{currentReady=true;publish();}),
+     fetchDoc(listURL).then(doc=>discover(doc,listURL)).catch(()=>{failures++;}),
+     fetchSnapshot().then(value=>{snapshot=value;}).catch(()=>{reviewMissing=true;}).finally(()=>{snapshotReady=true;publish();})
     ]);
-    const urls=new Map();
-    function discover(doc,page){if(!doc)return;doc.querySelectorAll('a[href]').forEach(a=>{const u=new URL(a.getAttribute('href'),page);if(u.origin===base.origin&&u.pathname.startsWith(base.pathname+'weeks/')&&/\/\d{4}-\d{2}-\d{2}\.html$/.test(u.pathname)){u.hash='';u.search='';urls.set(u.href,{url:u,label:a.textContent.trim()});}});}
-    discover(current,currentURL);discover(list,listURL);
-    weeklyLinks=[...urls.values()].sort((a,b)=>b.url.pathname.localeCompare(a.url.pathname));
-    const sources=current?Core.parse(current,currentURL):[];
-    const pending=[...urls.values()];
-    for(let i=0;i<pending.length;i+=4){const batch=await Promise.all(pending.slice(i,i+4).map(async item=>{try{return Core.parse(await fetchDoc(item.url),item.url);}catch(_){failures++;return [];}}));batch.forEach(rows=>sources.push(...rows));}
-    dishes=Core.build(sources,snapshot?.sources||[]).dishes;
-    loaded=true;
+    await Promise.all(archiveJobs);publish();
    })().catch(()=>{failures++;loaded=true;}).finally(()=>{loading=null;refresh();renderWeeks();});
    refresh();return loading;
   }
@@ -44,9 +92,10 @@
   }
   function syncScrollLock(){document.body.classList.toggle('search-open',!!document.querySelector('.meal-search[open],.dish-detail[open]'));}
   function openDish(dish, opener, query) {
+   const openerList=opener?.parentElement;
    const popup=el('dialog','dish-detail');popup.setAttribute('aria-label',dish.name);
    const head=el('div','dish-detail-head');head.append(el('h2','',dish.name),button('关闭',()=>popup.close(),'search-close'));
-   const info=el('p','dish-detail-intro','食材与做法摘自原菜单；未明确归属的内容请看原餐，份量按所选日期保留。');
+   const info=el('p','dish-detail-intro','食材与做法摘自原菜单；未明确归属的内容请看原餐，份量按所选日期保留。'+(loading?'往期仍在读取，稍后重新打开可查看补齐的日期记录。':''));
    const body=el('div','dish-detail-body');
    const matching = v => Core.matches({name:dish.name,tags:v.ingredientTags,variants:[v]},query||'');
    let selected=dish.variants.findIndex(v=>matching(v)&&v.steps.length&&!v.alternative);
@@ -68,7 +117,7 @@
    }
    select.addEventListener('change',()=>{selected=Number(select.value);renderVariant();});
    popup.append(head,info,label,select,body);renderVariant();document.body.append(popup);
-   popup.addEventListener('close',()=>{popup.remove();syncScrollLock();if(opener?.isConnected)opener.focus({preventScroll:true});});
+   popup.addEventListener('close',()=>{popup.remove();syncScrollLock();const target=opener?.isConnected?opener:openerList?.querySelector('[data-dish-id="'+dish.id+'"]');target?.focus({preventScroll:true});});
    popup.showModal();syncScrollLock();
   }
   function createView(container, isSearch) {
@@ -83,15 +132,16 @@
    const result=el('div',isSearch?'search-results dish-grid':'library-results dish-grid');
    const more=button('再看 24 道',()=>{limit+=24;render();},'dish-more');more.hidden=true;
    function render(){
-    const query=input.value.trim();result.replaceChildren();retry.hidden=!(failures||reviewMissing);
+    const focusedDish=result.contains(document.activeElement)?document.activeElement.dataset.dishId:null;
+    const query=input.value.trim();result.replaceChildren();retry.hidden=!!loading||!(failures||reviewMissing);container.setAttribute('aria-busy',String(!!loading));
     filters.querySelectorAll('button').forEach(b=>{b.classList.toggle('active',b.textContent===category);b.setAttribute('aria-pressed',String(b.textContent===category));});
     more.hidden=true;
     if(!loaded){status.textContent='正在整理本周与往期菜谱…';return;}
     const warning=(failures?'部分菜单未加载，结果可能不完整。':'')+(reviewMissing?'已整理资料暂未加载，仅显示能确认的菜名。':'');
-    if(isSearch&&!query){status.textContent=warning+'输入菜名或食材，一次找一道菜。';return;}
+    if(isSearch&&!query){status.textContent=warning+(loading?'正在补充往期，可先搜索已读取的菜。':'输入菜名或食材，一次找一道菜。');return;}
     const matches=dishes.filter(d=>(category==='全部'||d.category===category)&&Core.matches(d,query));
-    status.textContent=warning+(query?'找到 '+matches.length+' 道菜':matches.length+' 道菜 · 同名合并，保留不同日期做法')+(loading?' · 正在重新读取…':'');
-    if(!matches.length)result.append(el('p','dish-empty-note','没有找到匹配的菜，试试“牛肉”“南瓜”或其他菜名。'));
+    status.textContent=warning+(loading?'正在补充往期，当前 ':'')+(query?'找到 '+matches.length+' 道菜':matches.length+' 道菜 · 同名合并，保留不同日期做法');
+    if(!matches.length)result.append(el('p','dish-empty-note',loading?'已读取的菜中暂未找到，往期仍在补充…':'没有找到匹配的菜，试试“牛肉”“南瓜”或其他菜名。'));
     matches.slice(0,limit).forEach(d=>{
      const card=button('',()=>openDish(d,card,query),'dish-card');card.dataset.dishId=d.id;
      card.append(el('small','dish-kind',d.category),el('span','dish-name',d.name));
@@ -100,6 +150,7 @@
      result.append(card);
     });
     more.hidden=matches.length<=limit;
+    if(focusedDish)result.querySelector('[data-dish-id="'+focusedDish+'"]')?.focus({preventScroll:true});
    }
    input.addEventListener('input',()=>{limit=24;render();});form.addEventListener('submit',e=>{e.preventDefault();limit=24;render();input.blur();});
    container.append(form,filters,status,retry,result,more);const view={input,render};views.push(view);return view;

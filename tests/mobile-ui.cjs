@@ -63,7 +63,7 @@ const base = process.env.BASE_URL || 'http://127.0.0.1:8765';
     await page.setViewportSize({ width: 390, height: 844 });
     await page.goto(base + '/index.html');
     await page.locator('.search-launch').click(); await page.locator('#meal-query').fill('牛肉');
-    await page.waitForFunction(() => document.querySelector('.meal-search .search-status').textContent.includes('找到'));
+    await page.waitForFunction(() => document.querySelector('.meal-search').getAttribute('aria-busy')==='false' && document.querySelector('.meal-search .search-status').textContent.includes('找到'));
     const foundNames = await page.locator('.search-results .dish-name').allTextContents();
     assert(foundNames.length > 3);
     assert(foundNames.includes('牛肉小馄饨'));
@@ -110,7 +110,7 @@ const base = process.env.BASE_URL || 'http://127.0.0.1:8765';
     await page.locator('.search-launch').click();await page.locator('#meal-query').fill('牛肉');
     await page.waitForFunction(()=>document.querySelector('.meal-search .search-status').textContent.includes('部分菜单'));
     await page.unroute('**/weeks/2026-09-07.html');await page.locator('.meal-search .search-retry').click();
-    await page.waitForFunction(()=>document.querySelector('.meal-search .search-status').textContent.includes('找到')&&!document.querySelector('.meal-search .search-status').textContent.includes('部分菜单'));
+    await page.waitForFunction(()=>document.querySelector('.meal-search').getAttribute('aria-busy')==='false'&&document.querySelector('.meal-search .search-status').textContent.includes('找到')&&!document.querySelector('.meal-search .search-status').textContent.includes('部分菜单'));
     assert.deepEqual(errors, []);
     console.log('PASS:', files.length, 'pages,', mealCount, 'meals, 4 widths, original nutrition/notes preserved, dish search and source-meal navigation, shopping + reminder controls.');
   } finally { await browser.close(); }
