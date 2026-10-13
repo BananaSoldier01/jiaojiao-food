@@ -5,7 +5,8 @@ const base = process.env.BASE_URL || 'http://127.0.0.1:8765';
   const browser = await chromium.launch();
   try {
     const page = await browser.newPage({ viewport: { width: 390, height: 844 } });
-    await page.goto(base + '/index.html#d1016');
+    // Readiness is the visible controls below, not the load event of unrelated resources.
+    await page.goto(base + '/index.html#d1016', { waitUntil: 'domcontentloaded', timeout: 60000 });
     await page.locator('.day-article.is-on .meal-tabs button').nth(1).click();
     await page.locator('.meal-card:visible .process-switch button').nth(1).click();
     await page.evaluate(() => scrollTo(0, 400));
