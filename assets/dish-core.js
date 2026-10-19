@@ -57,7 +57,14 @@
         const stepNodes = [...meal.querySelectorAll('.two-col > :nth-child(2) li')];
         records.push({ key: day.dataset.date + '/' + i, date: day.dataset.date, dayId: day.id, mealIndex: i, time: txt(meal.querySelector('.meal-time')), title: txt(title),
           path: /\/weeks\//.test(url.pathname) ? 'weeks/' + url.pathname.split('/').pop() : 'index.html', ingredients: ingredientNodes.map(txt), steps: stepNodes.map(txt), note: txt(meal.querySelector('.note-inline')),
-          assignments: { names: title.dataset.dishes || '', ingredients: ingredientNodes.map(e => e.dataset.dish || ''), steps: stepNodes.map(e => e.dataset.dish || '') }, overviewOnly: false });
+          assignments: { names: title.dataset.dishes || '', ingredients: ingredientNodes.map(e => e.dataset.dish || ''), steps: stepNodes.map(e => e.dataset.dish || '') },
+          images: [...meal.querySelectorAll('figure[data-dish]')].flatMap(figure => {
+            const img = figure.querySelector('img'), src = img?.getAttribute('src');
+            if (!src || !figure.dataset.dish.trim()) return [];
+            let resolved; try { resolved = new URL(src, url); } catch (_) { return []; }
+            if (!['http:', 'https:'].includes(resolved.protocol)) return [];
+            return [{ dish: figure.dataset.dish.trim(), src: resolved.href, alt: img.alt || '', caption: txt(figure.querySelector('figcaption')) }];
+          }), overviewOnly: false });
       });
     });
     const monday = url.pathname.match(/(\d{4}-\d{2}-\d{2})\.html$/)?.[1];
@@ -109,6 +116,8 @@
         dish.tags = [...new Set([...dish.tags, ...tags])];
         dish.variants.push({ sourceKey: source.key, date: source.date, time: source.time, path: source.path, dayId: source.dayId, mealIndex: source.mealIndex, overviewOnly: source.overviewOnly,
           originalTitle: source.title, label: part.label || name, alternative: !!part.alternative, ingredients, steps, note: source.note,
+          // Images are read from current HTML independently of reviewed text allocations.
+          images: (source.images || []).filter(image => cleanName(image.dish) === name || cleanName(image.dish) === cleanName(part.label || name)),
           verified: !!valid || (!!ingredients.length && !!steps.length), ingredientTags: tags });
       });
     });

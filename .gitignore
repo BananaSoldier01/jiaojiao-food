@@ -1,3 +1,6 @@
 .superpowers/
 .DS_Store
 
+
+# Local original photos and preview outputs; never publish.
+/output/

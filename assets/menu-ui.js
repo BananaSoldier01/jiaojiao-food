@@ -211,7 +211,9 @@
           popup.addEventListener('close', () => { popup.remove(); opener.focus({ preventScroll: true }); });
           popup.showModal();
         });
-        opener.className = 'image-open'; figure.prepend(opener);
+        opener.className = 'image-open photo-zoom-icon';
+        opener.setAttribute('aria-label', '放大做法图'); opener.title = '放大图片'; opener.textContent = '⤢';
+        const frame = make('div', 'recipe-photo-frame'); img.before(frame); frame.append(img, opener);
       }
     });
     meals[0].before(chooser);

@@ -91,15 +91,28 @@
    const url=new URL(variant.path,base);if(!variant.overviewOnly)url.searchParams.set('meal',variant.mealIndex);url.hash=variant.dayId;return url.href;
   }
   function syncScrollLock(){document.body.classList.toggle('search-open',!!document.querySelector('.meal-search[open],.dish-detail[open]'));}
+  function selectedVariant(dish, query) {
+   const matching=v=>Core.matches({name:dish.name,tags:v.ingredientTags,variants:[v]},query||'');
+   let index=dish.variants.findIndex(v=>matching(v)&&v.images.length&&!v.alternative);
+   if(index<0)index=dish.variants.findIndex(v=>matching(v)&&v.steps.length&&!v.alternative);
+   if(index<0)index=dish.variants.findIndex(matching);
+   return index<0?0:index;
+  }
+  function recipeImage(image, cls) {
+   const img=el('img',cls);img.alt=image.alt;img.loading='lazy';img.decoding='async';img.src=image.src;return img;
+  }
+  function openImage(image, opener, name) {
+   const popup=el('dialog','recipe-image-dialog');popup.setAttribute('aria-label',name+'配图');
+   popup.append(button('关闭图片',()=>popup.close()));if(image.caption)popup.append(el('p','',image.caption));popup.append(recipeImage(image,''));
+   document.body.append(popup);popup.addEventListener('close',()=>{popup.remove();opener.focus({preventScroll:true});});popup.showModal();
+  }
   function openDish(dish, opener, query) {
    const openerList=opener?.parentElement;
    const popup=el('dialog','dish-detail');popup.setAttribute('aria-label',dish.name);
    const head=el('div','dish-detail-head');head.append(el('h2','',dish.name),button('关闭',()=>popup.close(),'search-close'));
    const info=el('p','dish-detail-intro','食材与做法摘自原菜单；未明确归属的内容请看原餐，份量按所选日期保留。'+(loading?'往期仍在读取，稍后重新打开可查看补齐的日期记录。':''));
    const body=el('div','dish-detail-body');
-   const matching = v => Core.matches({name:dish.name,tags:v.ingredientTags,variants:[v]},query||'');
-   let selected=dish.variants.findIndex(v=>matching(v)&&v.steps.length&&!v.alternative);
-   if(selected<0)selected=dish.variants.findIndex(matching);if(selected<0)selected=0;
+   let selected=selectedVariant(dish,query);
    const select=el('select','dish-version');select.id='dish-version';
    dish.variants.forEach((v,i)=>{const opt=el('option','',v.date+' · '+v.time+(v.alternative?' · 备选':'')+(v.overviewOnly?' · 仅总览':''));opt.value=i;select.append(opt);});select.value=selected;
    const label=el('label','dish-version-label','选择菜单记录');label.htmlFor=select.id;
@@ -107,6 +120,12 @@
     body.replaceChildren();const v=dish.variants[selected];
     if(v.alternative)body.append(el('p','dish-context-warning','这是当日菜单的备选之一，未据此认定实际吃过。'));
     if(v.label!==dish.name)body.append(el('p','dish-original-label','原菜单名称：'+v.label));
+    v.images.forEach(image=>{
+     const figure=el('figure','dish-photo');
+     const zoom=button('',()=>openImage(image,zoom,dish.name),'dish-photo-open');zoom.setAttribute('aria-label','放大'+dish.name+'配图');
+     const img=recipeImage(image,'');img.addEventListener('error',()=>{zoom.replaceWith(el('p','dish-empty-note','这张配图暂时无法加载，食材与做法仍可查看。'));},{once:true});
+     const icon=el('span','photo-zoom-icon','⤢');icon.setAttribute('aria-hidden','true');zoom.append(img,icon);figure.append(zoom);if(image.caption)figure.append(el('figcaption','',image.caption));body.append(figure);
+    });
     if(v.ingredients.length){body.append(el('h3','','食材'));const list=el('ul','dish-ingredients');v.ingredients.forEach(text=>list.append(el('li','',text)));body.append(list);}
     else body.append(el('p','dish-empty-note',v.overviewOnly?'这份早期菜单只记录了菜名，没有独立食材用量。':'原餐食材未能明确拆分，暂不把整餐用量归到这道菜。'));
     if(v.steps.length){body.append(el('h3','','做法'));const list=el('ol','dish-steps');v.steps.forEach(text=>list.append(el('li','',text)));body.append(list);}
@@ -144,9 +163,15 @@
     if(!matches.length)result.append(el('p','dish-empty-note',loading?'已读取的菜中暂未找到，往期仍在补充…':'没有找到匹配的菜，试试“牛肉”“南瓜”或其他菜名。'));
     matches.slice(0,limit).forEach(d=>{
      const card=button('',()=>openDish(d,card,query),'dish-card');card.dataset.dishId=d.id;
-     card.append(el('small','dish-kind',d.category),el('span','dish-name',d.name));
-     const tags=d.tags.slice(0,4);if(tags.length)card.append(el('span','dish-tags',tags.join(' · ')));
-     const withSteps=d.variants.some(v=>v.steps.length);card.append(el('small','dish-card-meta',d.variants.length+' 份菜单记录 · '+(withSteps?'查看食材与做法':'菜名记录')));
+     const copy=el('span','dish-card-copy');copy.append(el('small','dish-kind',d.category),el('span','dish-name',d.name));
+     const tags=d.tags.slice(0,4);if(tags.length)copy.append(el('span','dish-tags',tags.join(' · ')));
+     const v=d.variants[selectedVariant(d,query)],image=v.images[0];
+     if(image){
+      const img=recipeImage(image,'dish-thumbnail');img.alt='';card.classList.add('has-image');
+      img.addEventListener('error',()=>{img.remove();card.classList.remove('has-image');},{once:true});card.append(img);
+      copy.append(el('small','dish-image-date','配图来自 '+v.date));
+     }
+     const withSteps=d.variants.some(v=>v.steps.length);copy.append(el('small','dish-card-meta',d.variants.length+' 份菜单记录 · '+(withSteps?'查看食材与做法':'菜名记录')));card.append(copy);
      result.append(card);
     });
     more.hidden=matches.length<=limit;

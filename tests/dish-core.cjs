@@ -30,3 +30,15 @@ assert(Core.splitTitle('牛肉馄饨（自包 或 现成） + 青菜').every(p=>
 assert.equal(Core.cleanName('苹果奶酪牛肉饼'),'苹果奶酪牛肉饼');
 
 console.log('PASS: dish dedupe, ingredient isolation, alternatives, combined pasta, legacy, stale-review invalidation, new tagged menu, exact source excerpts.');
+
+// A photo belongs only to its named dish; changing photos must not invalidate text curation.
+const pictured=structuredClone(future);
+pictured.images=[{dish:'南瓜饼',src:'https://example.com/pumpkin.jpg',alt:'南瓜饼',caption:'自摄'}];
+assert.equal(Core.signature(pictured),Core.signature(future));
+let photos=Core.build([pictured]).dishes;
+assert.equal(photos.find(d=>d.name==='南瓜饼').variants[0].images.length,1);
+assert.equal(photos.find(d=>d.name==='小米粥').variants[0].images.length,0);
+pictured.images[0].dish='整餐';
+assert(Core.build([pictured]).dishes.every(d=>!d.variants[0].images.length));
+assert(dishes.every(d=>d.variants.every(v=>Array.isArray(v.images))));
+console.log('PASS: image ownership, unassigned image isolation, photo-independent text signature, legacy compatibility.');
